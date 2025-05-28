@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/department")
@@ -30,6 +31,11 @@ public class DepartmentController {
         private DepartmentService departmentService;
 
         //Admin only
+        @Operation(
+                summary = "Create a new department",
+                description = "Allows an ADMIN to create a new medical department with a name and description.",
+                security = @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "bearerAuth")
+    )
         @PostMapping("/save")
         public ResponseEntity<DepartmentDTO> save(@Valid @RequestBody DepartmentSaveDTO departmentSaveDTO){
            Department department= new Department();
@@ -39,7 +45,13 @@ public class DepartmentController {
             return ResponseEntity.ok(createDepartmentDTO(department));
         }
 
-   //permitall
+    /**
+     * PUBLIC access
+     */
+    @Operation(
+            summary = "Get all departments",
+            description = "Retrieves a list of all medical departments. This endpoint is publicly accessible."
+    )
         @GetMapping("/findall")
         public ResponseEntity<List<DepartmentDTO>> findAll(){
             List<DepartmentDTO> departmentDTOList= new ArrayList<>();
@@ -49,7 +61,14 @@ public class DepartmentController {
           );
           return ResponseEntity.ok(departmentDTOList);
         }
-    //permitall
+
+    /**
+     * PUBLIC access
+     */
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Get department by ID",
+            description = "Fetches a department's details using its ID. This endpoint is publicly accessible."
+    )
         @GetMapping("/{id}")
         public ResponseEntity<DepartmentDTO> findById(@PathVariable int id){
             Department department= departmentService.findById(id).orElseThrow(()->

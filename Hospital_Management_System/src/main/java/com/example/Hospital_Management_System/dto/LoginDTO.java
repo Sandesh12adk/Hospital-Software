@@ -10,6 +10,4 @@ import java.util.List;
 @NoArgsConstructor
 public class LoginDTO {
     private String jwtToken;
-    protected String userName;
-    protected List<String> roles;
 }

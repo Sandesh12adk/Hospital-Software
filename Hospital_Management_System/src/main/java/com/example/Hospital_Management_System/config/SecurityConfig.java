@@ -27,14 +27,40 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
       http.csrf((csrf)-> csrf.disable())
               .authorizeHttpRequests((auth)->
-                      auth.requestMatchers("/user/doctor/make_as_schelduded/{appointmentId}",
+                      auth
+                              .requestMatchers(
+                                      "/user/doctor/make_as_schelduded/{appointmentId}",
                                       "/user/doctor/make_as_canceled/{appointmentId}",
-                                              "/medicalrecord/save").hasRole(USER_ROLE.DOCTOR.name())
-                              .requestMatchers("/admin/save","/appointment/create",
-                                      "/appointment/findall","/department/save","/user/patient/findall").hasRole(USER_ROLE.ADMIN.name())
-                              .requestMatchers("/appointment/findbydoctorid/{docId}","/appointment/findBydocId/**").hasAnyRole(USER_ROLE.DOCTOR.name(), USER_ROLE.ADMIN.name())
-                              .requestMatchers("/appointment/findbypatientid/{patientId}").hasAnyRole(USER_ROLE.ADMIN.name(),USER_ROLE.PATIENT.name())
-                              .requestMatchers("/docs","/department/findall","/department/{id}","/user/patient/register","/user/patient/{patiendId}").permitAll()
+                                      "/medicalrecord/save"
+                              ).hasRole(USER_ROLE.DOCTOR.name())
+
+                              .requestMatchers(
+                                      "/admin/register",
+                                      "/appointment/create",
+                                      "/appointment/findall",
+                                      "/department/save",
+                                      "/user/patient/findall"
+                              ).hasRole(USER_ROLE.ADMIN.name())
+
+                              .requestMatchers(
+                                      "/appointment/find-by-doctorid/{docId}",
+                                      "/appointment/find-by-docid-and-status/**"
+                              ).hasAnyRole(USER_ROLE.DOCTOR.name(), USER_ROLE.ADMIN.name())
+
+                              .requestMatchers(
+                                      "/appointment/findbypatientid/{patientId}",
+                                      "/user/patient/{patiendId}"
+                              ).hasAnyRole(USER_ROLE.ADMIN.name(), USER_ROLE.PATIENT.name())
+
+                              .requestMatchers(
+                                      "/docs",
+                                      "/department/findall",
+                                      "/department/{id}",
+                                      "/user/patient/register",
+                                      "/user/doctor/register",
+                                      "/login"
+                              ).permitAll()
+
                               .anyRequest().authenticated()
               )
               .sessionManagement((session)->

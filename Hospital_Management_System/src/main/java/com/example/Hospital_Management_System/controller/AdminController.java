@@ -4,6 +4,8 @@ import com.example.Hospital_Management_System.constant.USER_ROLE;
 import com.example.Hospital_Management_System.dto.AdminSaveDTO;
 import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ public class AdminController {
     @Autowired
     private UserService userService;
     //Admin only
+    @Operation(
+            summary = "Register new admin",
+            description = "Accessible by ADMIN only",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     @PostMapping("/register")
     public ResponseEntity<String> saveAdmin(@Valid @RequestBody AdminSaveDTO adminSaveDTO) {
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);

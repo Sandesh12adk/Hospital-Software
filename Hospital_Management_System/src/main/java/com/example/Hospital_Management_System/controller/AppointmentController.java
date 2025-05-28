@@ -14,6 +14,8 @@ import com.example.Hospital_Management_System.repo.PatientRepo;
 import com.example.Hospital_Management_System.service.AppointmentService;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,11 @@ public class AppointmentController {
     private GrantAccess grantAccess;
 
     //access: adimin only
+    @Operation(
+            summary = "Create a new appointment",
+            description = "Allows ADMIN to create a new appointment by specifying the doctor and patient IDs, reason, date, and time.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     @PostMapping("/create")
     public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentSaveDTO appointmentSaveDTO) throws AccessDeniedException {
         Patient patient = patientRepo.findById(appointmentSaveDTO.getPatientId()).orElseThrow(() ->
@@ -68,7 +75,12 @@ public class AppointmentController {
     }
 
     //access: That specific doctor and admin
-    @GetMapping("/findbydoctorid/{docId}")
+    @Operation(
+            summary = "Get appointments by doctor ID",
+            description = "Returns all appointments for a specific doctor. Accessible by ADMIN and the doctor themselves.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @GetMapping("/find-by-doctorid/{docId}")
     public ResponseEntity<List<AppointmentDTO>> findBydocId(@PathVariable int docId) throws AccessDeniedException {
         User user = grantAccess.getAuthenticationUser();
         boolean isDoctor = user.getDoctor() != null;
@@ -80,15 +92,17 @@ public class AppointmentController {
                     .map((appointment) ->
                             createAppointmentDTO(appointment)
                     ).collect(toList());
-            if (appointmentDTOList.size() == 0) {
-                throw new ResourceNotFoundException("No Appointment associated with doctor id " + docId);
-            }
             return ResponseEntity.ok(appointmentDTOList);
         }
         throw new AccessDeniedException("Sorry, Access denied");
     }
     //Admin and that specific doctor
-   @GetMapping("/findBydocId")
+    @Operation(
+            summary = "Get appointments by doctor ID and status",
+            description = "Returns all appointments for a specific doctor filtered by appointment status (e.g PENDING,SCHEDULDED,COMPLETED,CANCLED). Accessible by ADMIN and the respective doctor.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+   @GetMapping("/find-by-docid-and-status")
    public ResponseEntity<List<AppointmentDTO>>findBydoctIdByStatus(@RequestParam(required = true) int docId,
                                @RequestParam(required = true) String status)throws  AccessDeniedException{
        // Convert the status string to the enum
@@ -118,6 +132,11 @@ public class AppointmentController {
 
 
     // access: that specific doctor, that specific patient and admin all
+    @Operation(
+            summary = "Get appointments by doctor and patient ID",
+            description = "Returns all appointments between a specific doctor and patient. Accessible by ADMIN, the doctor involved, and the patient involved.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
         @GetMapping("/find")
         public ResponseEntity<List<AppointmentDTO>> findByDocAndPatientId ( @RequestParam int doctorId, @RequestParam
         int patientId)throws AccessDeniedException {
@@ -142,6 +161,11 @@ public class AppointmentController {
             throw new AccessDeniedException("Sorry, Access denied");
         }
         // access: admin only
+        @Operation(
+                summary = "Get all appointments",
+                description = "Returns a complete list of all appointments in the system. Accessible by ADMIN only.",
+                security = @SecurityRequirement(name = "bearerAuth")
+        )
         @GetMapping("/findall")
         public ResponseEntity<List<AppointmentDTO>> findAll ()throws AccessDeniedException {
             User user = grantAccess.getAuthenticationUser();

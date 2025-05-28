@@ -9,6 +9,7 @@ import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.securityservice.JWTService;
 import com.example.Hospital_Management_System.service.securityservice.MyUserDetailsService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class LoginController {
     private GrantAccess grantAccess;
 
     //permitall
+    @Operation(
+            summary = "Authenticate user and return JWT token",
+            description = "Validates user credentials and returns a JWT token upon successful authentication. Accessible by all."
+    )
+
     @PostMapping("/login")
     public ResponseEntity<LoginDTO> returnJWTToken(@RequestBody LoginSaveDTO loginSaveDTO) throws AccessDeniedException {
         String jwtToken = "";
@@ -50,12 +56,15 @@ public class LoginController {
             );
             LoginDTO loginDTO= new LoginDTO();
             loginDTO.setJwtToken(jwtToken);
-            loginDTO.setRoles(roles);
-            loginDTO.setUserName(user.getName());
             return ResponseEntity.ok(loginDTO);
         }
         throw new AccessDeniedException("Invalid Credientals");
     }
+
+    @Operation(
+            summary = "Get authenticated user's account info",
+            description = "Returns the current authenticated user's basic account information including roles. Requires authentication."
+    )
 
     @GetMapping("/accountinfo")
     public ResponseEntity<AccountInfoDTO> myAccount() {

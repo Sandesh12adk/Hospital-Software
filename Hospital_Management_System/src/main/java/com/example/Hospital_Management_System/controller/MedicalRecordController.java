@@ -10,6 +10,7 @@ import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.AppointmentService;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.MedicalRecordService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,11 @@ public class MedicalRecordController {
     private GrantAccess grantAccess;
 
     //That specific Doctor only
+    @Operation(
+            summary = "Save a new medical record",
+            description = "Allows the doctor of a specific appointment to save a medical record. Only accessible by the doctor who owns the appointment."
+    )
+
     @PostMapping("/save")
     public ResponseEntity<MedicalRecordDTO> save(@RequestBody MedicalRecordSaveDTO medicalRecordSaveDTO) {
         User user = grantAccess.getAuthenticationUser();
@@ -58,6 +64,11 @@ public class MedicalRecordController {
     }
 
     //Doctor, that specific patient and admin
+    @Operation(
+            summary = "Get medical records by patient ID",
+            description = "Fetches all medical records associated with a given patient ID. Accessible by admin, all doctors, or the patient themselves."
+    )
+
     @GetMapping("/find_by_patientid/{patientId}")
     public ResponseEntity<List<MedicalRecordDTO>> findByPatientId(@PathVariable int patientId){
         User user= grantAccess.getAuthenticationUser();

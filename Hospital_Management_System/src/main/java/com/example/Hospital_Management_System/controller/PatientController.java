@@ -9,6 +9,7 @@ import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.repo.PatientRepo;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class PatientController {
     @Autowired
     private PatientRepo patientRepo;
     //permit all
+    @Operation(
+            summary = "Register a new patient",
+            description = "Registers a new patient by creating both user and patient records. Accessible by everyone."
+    )
+
     @PostMapping("/patient/register")
     public ResponseEntity<PatientDTO> save(@Valid @RequestBody PatientSaveDTO patientSaveDTO){
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
@@ -51,6 +57,11 @@ public class PatientController {
         return ResponseEntity.ok(createPatientDTO(user));
     }
    //admin only
+   @Operation(
+           summary = "Get all patients",
+           description = "Fetches a list of all registered patients. Accessible only by admin users."
+   )
+
     @GetMapping("/patient/findall")
     public ResponseEntity<List<PatientDTO>> findAll(){
         List<PatientDTO> patientDTOList= userService.findAll().stream()
@@ -66,14 +77,18 @@ public class PatientController {
         return ResponseEntity.ok(patientDTOList);
     }
 //admin, doctor and that specific patient
-    @GetMapping("/patient/{patientId}")
+@Operation(
+        summary = "Find patient by ID",
+        description = "Fetches patient information by patient ID. Accessible by admin,or the patient themselves."
+)
+
+@GetMapping("/patient/{patientId}")
     public ResponseEntity<PatientDTO> findById(@PathVariable int patientId)throws AccessDeniedException{
         User user= grantAccess.getAuthenticationUser();
         boolean isAdmin = user.getRole() == USER_ROLE.ADMIN;
-        boolean isDoctor= user.getDoctor()!= null;
         boolean isPatient= user.getPatient()!=null;
         System.out.println(isAdmin);
-        if (isAdmin || isDoctor || (isPatient && user.getPatient().getId()==patientId))
+        if (isAdmin || (isPatient && user.getPatient().getId()==patientId))
         {
             Patient patient = patientRepo.findById(patientId).orElseThrow(() -> new ResourceNotFoundException("Patient Not Found"));
             return ResponseEntity.ok(createPatientDTO(patient.getUser()));

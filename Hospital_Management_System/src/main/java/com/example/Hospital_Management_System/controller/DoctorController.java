@@ -15,6 +15,7 @@ import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
 import com.example.Hospital_Management_System.service.securityservice.JWTService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,12 @@ public class DoctorController {
     @Autowired
     private DoctorRepo doctorRepo;
 
-    //permitall- authenticated
+    //permitall
+    @Operation(
+            summary = "Register new doctor",
+            description = "Registers a new doctor, this api is publicly accessable wihout any authentication needed."
+    )
+
     @PostMapping("register")
     public ResponseEntity<DoctorDTO> save(@Valid @RequestBody DoctorSaveDTO doctorSaveDTO){
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
@@ -73,6 +79,10 @@ public class DoctorController {
     }
 
     //permitall-authenticated
+    @Operation(
+            summary = "Get all doctors",
+            description = "Returns a list of all registered doctors. Accessible by authenticated users."
+    )
     @GetMapping("findall")
     public ResponseEntity<List<DoctorDTO>> findAll() {
         List<DoctorDTO> doctorDTOList = userService.findAll().stream().filter((user) ->
@@ -89,6 +99,10 @@ public class DoctorController {
     }
 
     //permitall-authenticated
+    @Operation(
+            summary = "Get doctor by ID",
+            description = "Fetch doctor details by doctor ID. Accessible by authenticated users."
+    )
     @GetMapping("{doctorId}")
     public ResponseEntity<DoctorDTO> findById(@PathVariable int doctorId) {
         Doctor doctor= doctorRepo.findById(doctorId).orElseThrow(() ->   // map return optional but .orElseThrow return value or the exception
@@ -98,6 +112,10 @@ public class DoctorController {
         return ResponseEntity.ok(doctorDTOOptional);
     }
     //Doctor only
+    @Operation(
+            summary = "Mark appointment as scheduled",
+            description = "Marks an appointment as scheduled. Accessible only by the doctor assigned to that appointment."
+    )
     @PutMapping("make_as_schelduded/{appointmentId}")
     public ResponseEntity<String> markAppointmentAsSchelduded(@PathVariable int appointmentId)throws AccessDeniedException {
         User user = grantAccess.getAuthenticationUser();
@@ -111,7 +129,12 @@ public class DoctorController {
                 throw new AccessDeniedException("Sorry, Access Denied");
     }
 //Doctor only
-    @PutMapping("make_as_canceled/{appointmentId}")
+@Operation(
+        summary = "Mark appointment as canceled",
+        description = "Marks an appointment as canceled. Accessible only by the doctor assigned to that appointment."
+)
+
+@PutMapping("make_as_canceled/{appointmentId}")
     public ResponseEntity<String> markAppointmentAsCancled(@PathVariable int appointmentId)throws AccessDeniedException{
         User user = grantAccess.getAuthenticationUser();
         Appointment appointment= appointmentService.findById(appointmentId).orElseThrow(()->

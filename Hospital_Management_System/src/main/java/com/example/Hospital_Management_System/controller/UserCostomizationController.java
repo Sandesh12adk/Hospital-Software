@@ -7,6 +7,7 @@ import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.UserService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ import java.nio.file.AccessDeniedException;
 public class UserCostomizationController {
     @Autowired
     private UserService userService;
-    @PostMapping("/password")
 
-    //permitall
+    @Operation(
+            summary = "Update user password",
+            description = "Allows an authenticated user to update their password by verifying the old password."
+    )
+
+    @PostMapping("/password")
     public ResponseEntity<PasswordUpdateDTO> updatePassword(@Valid @RequestBody PasswordUpdateDTO passwordUpdateDTO) throws AccessDeniedException{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
@@ -47,7 +52,7 @@ public class UserCostomizationController {
          throw new AccessDeniedException("Sorry, Failed to update you password. PLease make sure you old and new " +
                  "password are not matching");
     }
-    //permitall
+/*
     @PostMapping("/email")
     public ResponseEntity<emailUpdateDTO> updateEmail(@Valid @RequestBody emailUpdateDTO emailUpdateDTO)throws AccessDeniedException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -62,5 +67,5 @@ public class UserCostomizationController {
         }
         throw new AccessDeniedException("Sorry, Failed to update you Email");
     }
-
+*/
 }
