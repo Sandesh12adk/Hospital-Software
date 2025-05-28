@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=build /app/target/Hospital_Management_System-0.0.1-SNAPSHOT.jar HMS.jar
 
 # Expose the port your app runs on (Spring Boot defaults to 8080)
-EXPOSE 8080
+EXPOSE 3306
 
 # Run the JAR
 ENTRYPOINT ["java", "-jar", "HMS.jar"]
