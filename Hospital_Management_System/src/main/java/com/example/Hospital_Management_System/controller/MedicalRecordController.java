@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/medicalrecord")
 @CrossOrigin(origins = "*")
-@Tag(name="Medical Record APIs",description= "Save Medical Record, Find By Patient Id")
+@Tag(name = "Medical Record APIs", description = "Save Medical Record, Find By Patient Id")
 public class MedicalRecordController {
 
     @Autowired

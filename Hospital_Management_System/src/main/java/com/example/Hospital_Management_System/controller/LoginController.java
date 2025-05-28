@@ -27,7 +27,10 @@ import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@Tag(name="Login Apis",description= "Get_JWT_Token")
+@Tag(
+        name = "Login APIs",
+        description = "Endpoints for user authentication and getting JWT token and retrieving authenticated user's account information."
+)
 public class LoginController {
     @Autowired
     private JWTService jwtService;

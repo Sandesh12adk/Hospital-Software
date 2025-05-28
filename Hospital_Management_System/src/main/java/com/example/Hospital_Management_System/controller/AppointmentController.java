@@ -33,7 +33,13 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/appointment")
 @CrossOrigin(origins = "*") // Only for local development!
-@Tag(name="Appointment APIs",description= "Create,  Find-By-Doc-Id,  Find-By-Patient-Id,  Find-By-Doc-And-Pat-Id,  Find-All")
+@Tag(
+        name = "Appointment APIs",
+        description = "APIs for managing appointments including creation, " +
+                "filtering by doctor/patient/status, and retrieval. Accessible by ADMIN, " +
+                "DOCTOR, and PATIENT roles where applicable."
+)
+
 public class AppointmentController {
     private final AppointmentService appointmentService;
 

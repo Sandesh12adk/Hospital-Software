@@ -24,7 +24,13 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("/department")
 @Slf4j
 @CrossOrigin(origins="*")
-@Tag(name="Department APIs",description="Create,  FindAll, FindByID ")
+@Tag(
+        name = "Department APIs",
+        description = "Endpoints for managing hospital departments. " +
+                "Includes creation (ADMIN only), retrieval of all departments," +
+                " and lookup by ID (public access)."
+)
+
 public class DepartmentController {
 
         @Autowired

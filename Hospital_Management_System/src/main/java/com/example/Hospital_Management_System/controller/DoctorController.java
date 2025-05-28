@@ -35,7 +35,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/user/doctor/")
 @CrossOrigin(origins = "*") // Only for local development!
-@Tag(name="Doctor APIs",description = "New Register, findAll, findById, Mark_As_Schelduded,  Mark_As_Calcelled")
+@Tag(
+        name = "Doctor APIs",
+        description = "Endpoints for doctor registration (public), retrieving doctors (authenticated users), " +
+                "and managing appointment statuses (doctor only)."
+)
+
 public class DoctorController {
     @Autowired
     private UserService userService;

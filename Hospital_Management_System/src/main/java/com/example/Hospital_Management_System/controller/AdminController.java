@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin(origins = "*") // Only for local development!
-@Tag(name="Admin APIs",description= "Register")
+@Tag(name="Admin APIs")
 public class AdminController {
     @Autowired
     private UserService userService;

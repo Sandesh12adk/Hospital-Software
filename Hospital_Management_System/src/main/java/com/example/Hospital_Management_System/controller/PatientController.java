@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
-@Tag(name="Patient APIs",description= "New Register,  FindAll,  Find-By-Id")
+@Tag(name = "Patient APIs", description = "New Register, FindAll, Find-By-Id")
 public class PatientController {
     @Autowired
     private UserService userService;
