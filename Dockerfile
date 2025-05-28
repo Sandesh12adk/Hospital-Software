@@ -1,5 +1,5 @@
 # Stage 1: Build using Maven with JDK 17
-FROM maven:3.9.3-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY Hospital_Management_System .
 RUN mvn clean package -DskipTests
