@@ -159,9 +159,7 @@ public class AppointmentController {
                 List<AppointmentDTO> appointmentDTOList = findBydocId(doctorId).getBody().stream().filter((appointmentDTO) ->
                         appointmentDTO.getPatientId() == patientId
                 ).toList();
-                if (appointmentDTOList.size() == 0) {
-                    throw new ResourceNotFoundException("No Appointment associated with patient id " + patientId);
-                }
+
                 return ResponseEntity.ok(appointmentDTOList);
             }
             throw new AccessDeniedException("Sorry, Access denied");
@@ -174,15 +172,11 @@ public class AppointmentController {
         )
         @GetMapping("/findall")
         public ResponseEntity<List<AppointmentDTO>> findAll ()throws AccessDeniedException {
-            User user = grantAccess.getAuthenticationUser();
             List<AppointmentDTO> appointmentDTOList = appointmentService.findAll()
                     .stream().map((appointment) -> {
                                 return createAppointmentDTO(appointment);
                             }
                     ).toList();
-            if (appointmentDTOList.size() == 0) {
-                throw new ResourceNotFoundException("Appointments List is Empty");
-            }
             return ResponseEntity.ok(appointmentDTOList);
         }
 

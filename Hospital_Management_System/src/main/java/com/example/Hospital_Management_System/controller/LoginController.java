@@ -86,7 +86,7 @@ public class LoginController {
             if (user.getRole() != USER_ROLE.ADMIN) {
                 String role = roles.contains("ROLE_DOCTOR") ? "DOCTOR" : "PATIENT";
                 int roleId = user.getRole() == USER_ROLE.DOCTOR ? user.getDoctor().getId() : user.getPatient().getId();
-                accountInfoDTO.setRoleAndId(role + ":" + roleId);
+                accountInfoDTO.setRoleId(roleId);
             }
             return ResponseEntity.ok(accountInfoDTO);
         }

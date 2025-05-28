@@ -11,6 +11,7 @@ import com.example.Hospital_Management_System.service.AppointmentService;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.MedicalRecordService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,8 @@ public class MedicalRecordController {
     //That specific Doctor only
     @Operation(
             summary = "Save a new medical record",
-            description = "Allows the doctor of a specific appointment to save a medical record. Only accessible by the doctor who owns the appointment."
+            description = "Allows the doctor of a specific appointment to save a medical record. Only accessible by the doctor who owns the appointment.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
 
     @PostMapping("/save")
@@ -66,7 +68,8 @@ public class MedicalRecordController {
     //Doctor, that specific patient and admin
     @Operation(
             summary = "Get medical records by patient ID",
-            description = "Fetches all medical records associated with a given patient ID. Accessible by admin, all doctors, or the patient themselves."
+            description = "Fetches all medical records associated with a given patient ID. Accessible by admin, all doctors, or the patient themselves.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
 
     @GetMapping("/find_by_patientid/{patientId}")

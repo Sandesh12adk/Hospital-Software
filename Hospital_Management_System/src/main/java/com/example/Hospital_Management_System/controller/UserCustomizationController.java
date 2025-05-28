@@ -5,6 +5,7 @@ import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.UserService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class UserCustomizationController {
 
     @Operation(
             summary = "Update user password",
-            description = "Allows an authenticated user to update their password by verifying the old password."
+            description = "Allows an authenticated user to update their password by verifying the old password.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @PostMapping("/password")
     public ResponseEntity<PasswordUpdateDTO> updatePassword(@Valid @RequestBody PasswordUpdateDTO passwordUpdateDTO) throws AccessDeniedException {

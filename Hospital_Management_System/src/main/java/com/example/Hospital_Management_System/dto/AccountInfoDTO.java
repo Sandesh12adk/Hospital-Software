@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class AccountInfoDTO {
-    private String roleAndId;
+    private int roleId;
     protected String userName;
     protected List<String> roles;
     protected int userId;

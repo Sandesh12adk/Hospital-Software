@@ -16,6 +16,7 @@ import com.example.Hospital_Management_System.service.UserService;
 import com.example.Hospital_Management_System.service.securityservice.JWTService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,8 @@ public class DoctorController {
     //permitall-authenticated
     @Operation(
             summary = "Get doctor by ID",
-            description = "Fetch doctor details by doctor ID. Accessible by authenticated users."
+            description = "Fetch doctor details by doctor ID. Accessible by authenticated users.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @GetMapping("{doctorId}")
     public ResponseEntity<DoctorDTO> findById(@PathVariable int doctorId) {
@@ -119,7 +121,8 @@ public class DoctorController {
     //Doctor only
     @Operation(
             summary = "Mark appointment as scheduled",
-            description = "Marks an appointment as scheduled. Accessible only by the doctor assigned to that appointment."
+            description = "Marks an appointment as scheduled. Accessible only by the doctor assigned to that appointment.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @PutMapping("make_as_schelduded/{appointmentId}")
     public ResponseEntity<String> markAppointmentAsSchelduded(@PathVariable int appointmentId)throws AccessDeniedException {
@@ -136,7 +139,9 @@ public class DoctorController {
 //Doctor only
 @Operation(
         summary = "Mark appointment as canceled",
-        description = "Marks an appointment as canceled. Accessible only by the doctor assigned to that appointment."
+        description = "Marks an appointment as canceled. Accessible only by the doctor assigned to that appointment.",
+        security = @SecurityRequirement(name = "bearerAuth")
+
 )
 
 @PutMapping("make_as_canceled/{appointmentId}")

@@ -10,6 +10,7 @@ import com.example.Hospital_Management_System.repo.PatientRepo;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PatientController {
     //permit all
     @Operation(
             summary = "Register a new patient",
-            description = "Registers a new patient by creating both user and patient records. Accessible by everyone."
+            description = "Registers a new patient. Accessible by everyone."
     )
 
     @PostMapping("/patient/register")
@@ -59,7 +60,8 @@ public class PatientController {
    //admin only
    @Operation(
            summary = "Get all patients",
-           description = "Fetches a list of all registered patients. Accessible only by admin users."
+           description = "Fetches a list of all registered patients. Accessible only by admin users.",
+           security = @SecurityRequirement(name = "bearerAuth")
    )
 
     @GetMapping("/patient/findall")
@@ -79,7 +81,8 @@ public class PatientController {
 //admin, doctor and that specific patient
 @Operation(
         summary = "Find patient by ID",
-        description = "Fetches patient information by patient ID. Accessible by admin,or the patient themselves."
+        description = "Fetches patient information by patient ID. Accessible by admin,or the patient themselves.",
+        security = @SecurityRequirement(name = "bearerAuth")
 )
 
 @GetMapping("/patient/{patientId}")
