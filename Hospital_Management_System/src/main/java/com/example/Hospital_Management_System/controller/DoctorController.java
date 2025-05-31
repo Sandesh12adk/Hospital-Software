@@ -121,8 +121,7 @@ public class DoctorController {
     //Doctor only
     @Operation(
             summary = "Mark appointment as scheduled",
-            description = "Marks an appointment as scheduled. Accessible only by the doctor assigned to that appointment.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            description = "Marks an appointment as scheduled. Accessible only by the doctor assigned to that appointment."
     )
     @PutMapping("make_as_schelduded/{appointmentId}")
     public ResponseEntity<String> markAppointmentAsSchelduded(@PathVariable int appointmentId)throws AccessDeniedException {

@@ -23,8 +23,7 @@ public class AdminController {
     //Admin only
     @Operation(
             summary = "Register new admin",
-            description = "Accessible by ADMIN only",
-            security = @SecurityRequirement(name = "bearerAuth")
+            description = "Accessible by ADMIN only"
     )
     @PostMapping("/register")
     public ResponseEntity<String> saveAdmin(@Valid @RequestBody AdminSaveDTO adminSaveDTO) {

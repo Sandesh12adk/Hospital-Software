@@ -24,19 +24,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 						email = "sandesh12adk@gmail.com",
 						url = "https://www.facebook.com/sandesh.adhikari.3323"
 				)
-		),
-				security = @SecurityRequirement(
-						name = "bearerAuth"
-				)
+		)
 )
 
-@SecurityScheme(
-		name = "bearerAuth",
-		scheme = "bearer",
-		type = SecuritySchemeType.HTTP,
-		bearerFormat = "JWT",
-		in = SecuritySchemeIn.HEADER
-)
+
 
 @SpringBootApplication
 @EnableJpaAuditing
