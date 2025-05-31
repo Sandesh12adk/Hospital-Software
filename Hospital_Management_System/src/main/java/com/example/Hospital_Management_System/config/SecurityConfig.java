@@ -58,8 +58,12 @@ public class SecurityConfig {
                                       "/department/{id}",
                                       "/user/patient/register",
                                       "/user/doctor/register",
-                                      "/login"
+                                      "/login",
+                                      "/swagger-ui/**",
+                                      "/v3/api-docs/**",
+                                      "/swagger-ui.html"
                               ).permitAll()
+
 
                               .anyRequest().authenticated()
               )
