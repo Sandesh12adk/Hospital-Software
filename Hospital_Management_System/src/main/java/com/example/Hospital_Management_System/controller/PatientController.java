@@ -39,9 +39,7 @@ public class PatientController {
             summary = "Register a new patient",
             description = "Registers a new patient. Accessible by everyone."
     )
-
-    @PreAuthorize("permitAll()")
-    @PostMapping("/patient/register")
+    @PostMapping("/patient_register")
     public ResponseEntity<PatientDTO> save(@Valid @RequestBody PatientSaveDTO patientSaveDTO){
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
        User user= new User();

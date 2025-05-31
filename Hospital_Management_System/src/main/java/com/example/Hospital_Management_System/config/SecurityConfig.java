@@ -23,57 +23,57 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
   @Autowired
   private Filter filter;
-  @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
-      http.csrf((csrf)-> csrf.disable())
-              .authorizeHttpRequests((auth)->
-                      auth
-                              .requestMatchers(
-                                      "/user/doctor/make_as_schelduded/{appointmentId}",
-                                      "/user/doctor/make_as_canceled/{appointmentId}",
-                                      "/medicalrecord/save"
-                              ).hasRole(USER_ROLE.DOCTOR.name())
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((auth) ->
+                        auth.requestMatchers(
+                                        "/user/doctor/make_as_schelduded/{appointmentId}",
+                                        "/user/doctor/make_as_canceled/{appointmentId}",
+                                        "/medicalrecord/save"
+                                ).hasRole("DOCTOR") // or "ROLE_DOCTOR" depending on enum
 
-                              .requestMatchers(
-                                      "/admin/register",
-                                      "/appointment/create",
-                                      "/appointment/findall",
-                                      "/department/save",
-                                      "/user/patient/findall"
-                              ).hasRole(USER_ROLE.ADMIN.name())
+                                .requestMatchers(
+                                        "/admin/register",
+                                        "/appointment/create",
+                                        "/appointment/findall",
+                                        "/department/save",
+                                        "/user/patient/findall"
+                                ).hasRole("ADMIN")
 
-                              .requestMatchers(
-                                      "/appointment/find-by-doctorid/{docId}",
-                                      "/appointment/find-by-docid-and-status/**"
-                              ).hasAnyRole(USER_ROLE.DOCTOR.name(), USER_ROLE.ADMIN.name())
+                                .requestMatchers(
+                                        "/appointment/find-by-doctorid/{docId}",
+                                        "/appointment/find-by-docid-and-status/**"
+                                ).hasAnyRole("DOCTOR", "ADMIN")
 
-                              .requestMatchers(
-                                      "/appointment/findbypatientid/{patientId}",
-                                      "/user/patient/{patiendId}"
-                              ).hasAnyRole(USER_ROLE.ADMIN.name(), USER_ROLE.PATIENT.name())
+                                .requestMatchers(
+                                        "/appointment/findbypatientid/{patientId}",
+                                        "/user/patient/{patiendId}"
+                                ).hasAnyRole("ADMIN", "PATIENT")
 
-                              .requestMatchers(
-                                      "/docs",
-                                      "/department/findall",
-                                      "/department/{id}",
-                                      "/user/patient/register",
-                                      "/user/doctor/register",
-                                      "/login",
-                                      "/swagger-ui/**",
-                                      "/v3/api-docs/**",
-                                      "/swagger-ui.html"
-                              ).permitAll()
+                                .requestMatchers(
+                                        "/docs",
+                                        "/department/findall",
+                                        "/department/{id}",
+                                        "/user/hello",
+                                        "/user/doctor/register",
+                                        "/login",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui.html",
+                                       "/user/patient_register"
+                                         // Temporary wildcard for testing
+                                ).permitAll()
+                                .anyRequest().authenticated()
+                )
+                .sessionManagement((session) ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
+        // Removed httpBasic()
 
-
-                              .anyRequest().authenticated()
-              )
-              .sessionManagement((session)->
-                      session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                      )
-              .httpBasic(Customizer.withDefaults());
-    http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-    return http.build();
-  }
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
   @Autowired
   private UserDetailsService userDetailsService;
   @Bean

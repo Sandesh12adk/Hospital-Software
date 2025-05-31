@@ -34,7 +34,7 @@ public class PatientSaveDTO {
 
     @JsonIgnore
     @Schema(hidden = true)
-    private USER_ROLE role;
+    private final USER_ROLE role= USER_ROLE.PATIENT;
 
     @NotBlank(message = "Gender must not be blank")
     @Pattern(regexp = "Male|Female|Other", message = "Gender must be Male, Female, or Other")
