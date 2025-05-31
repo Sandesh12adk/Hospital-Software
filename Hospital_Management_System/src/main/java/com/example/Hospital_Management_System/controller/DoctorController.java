@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,6 +63,7 @@ public class DoctorController {
             description = "Registers a new doctor, this api is publicly accessable wihout any authentication needed."
     )
 
+    @PreAuthorize("permitAll()")
     @PostMapping("register")
     public ResponseEntity<DoctorDTO> save(@Valid @RequestBody DoctorSaveDTO doctorSaveDTO){
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
@@ -87,7 +89,8 @@ public class DoctorController {
     //permitall-authenticated
     @Operation(
             summary = "Get all doctors",
-            description = "Returns a list of all registered doctors. Accessible by authenticated users."
+            description = "Returns a list of all registered doctors. Accessible by authenticated users.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @GetMapping("findall")
     public ResponseEntity<List<DoctorDTO>> findAll() {
