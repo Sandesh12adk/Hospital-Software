@@ -10,6 +10,7 @@ import com.example.Hospital_Management_System.service.securityservice.JWTService
 import com.example.Hospital_Management_System.service.securityservice.MyUserDetailsService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,8 @@ public class LoginController {
 
     @Operation(
             summary = "Get authenticated user's account info",
-            description = "Returns the current authenticated user's basic account information including roles. Requires authentication."
+            description = "Returns the current authenticated user's basic account information including roles. Requires authentication.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
 
     @GetMapping("/accountinfo")
