@@ -15,4 +15,5 @@ public interface UserRepo extends PagingAndSortingRepository<User, Integer>, Jpa
     Optional<User> findByName(String userName);
     @Query(value = "SELECT * FROM users WHERE uuser_id= :userId",nativeQuery = true)
     Doctor findByUserId(@Param("userId") int userId);
+     Optional<User> findByEmail(String email);
 }

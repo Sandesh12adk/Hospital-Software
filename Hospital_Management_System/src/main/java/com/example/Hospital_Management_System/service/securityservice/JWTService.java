@@ -32,7 +32,7 @@ public class JWTService {
     public Authentication getAuthenticatontion(LoginSaveDTO loginSaveDTO) {
         var authenticationManager = context.getBean(AuthenticationManager.class);
         return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginSaveDTO.getUserName(), loginSaveDTO.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginSaveDTO.getEmail(), loginSaveDTO.getPassword()));
     }
 
     public String generateToken(String username) {

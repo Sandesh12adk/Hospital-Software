@@ -54,7 +54,7 @@ public class LoginController {
         if (auth.isAuthenticated()) {     // This is the Entry point of Security
             UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
             User user = userPrincipal.getUser();
-            jwtToken = jwtService.generateToken(loginSaveDTO.getUserName());
+            jwtToken = jwtService.generateToken(loginSaveDTO.getEmail());
             auth.getAuthorities().forEach((grantedAuthority) ->
                     roles.add(grantedAuthority.getAuthority())
             );

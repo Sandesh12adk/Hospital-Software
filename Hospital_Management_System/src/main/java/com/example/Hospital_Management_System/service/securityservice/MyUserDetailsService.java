@@ -14,8 +14,8 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user= userService.findByUserName(username).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user= userService.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
         return new UserPrincipal(user);
 
     }

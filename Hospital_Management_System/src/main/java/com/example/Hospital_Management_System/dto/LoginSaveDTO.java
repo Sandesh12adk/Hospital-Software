@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Schema(description = "DTO for user login credentials")
 public class LoginSaveDTO {
-
-    @Schema(description = "Username or email used for login", example = "sandesh12adk@gmail.com")
-    private String userName;
+    @Schema(description = "Email used for login", example = "sandesh12adk@gmail.com")
+    private String email; // Changed from userName
 
     @Schema(description = "User's password", example = "YourPassword@123")
     private String password;
