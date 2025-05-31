@@ -40,7 +40,8 @@ public class Appointment {
     private LocalDate date;
 
 
-    @Column(nullable = false)
+
+    @Column(nullable = false, columnDefinition = "TIME")
     private LocalTime time;
 
     //Appointment Doctor Relation
