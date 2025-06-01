@@ -15,6 +15,7 @@ import com.example.Hospital_Management_System.service.AppointmentService;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -39,7 +39,6 @@ import static java.util.stream.Collectors.toList;
                 "filtering by doctor/patient/status, and retrieval. Accessible by ADMIN, " +
                 "DOCTOR, and PATIENT roles where applicable."
 )
-
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
@@ -62,7 +61,16 @@ public class AppointmentController {
     @Operation(
             summary = "Create a new appointment",
             description = "Allows ADMIN to create a new appointment by specifying the doctor and patient IDs, reason, date, and time.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            }
     )
     @PostMapping("/create")
     public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentSaveDTO appointmentSaveDTO) throws AccessDeniedException {
@@ -84,7 +92,16 @@ public class AppointmentController {
     @Operation(
             summary = "Get appointments by doctor ID",
             description = "Returns all appointments for a specific doctor. Accessible by ADMIN and the doctor themselves.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            }
     )
     @GetMapping("/find-by-doctorid/{docId}")
     public ResponseEntity<List<AppointmentDTO>> findBydocId(@PathVariable int docId) throws AccessDeniedException {
@@ -106,7 +123,15 @@ public class AppointmentController {
     @Operation(
             summary = "Get appointments by doctor ID and status",
             description = "Returns all appointments for a specific doctor filtered by appointment status (e.g PENDING,SCHEDULDED,COMPLETED,CANCLED). Accessible by ADMIN and the respective doctor.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
    @GetMapping("/find-by-docid-and-status")
    public ResponseEntity<List<AppointmentDTO>>findBydoctIdByStatus(@RequestParam(required = true) int docId,
@@ -141,7 +166,15 @@ public class AppointmentController {
     @Operation(
             summary = "Get appointments by doctor and patient ID",
             description = "Returns all appointments between a specific doctor and patient. Accessible by ADMIN, the doctor involved, and the patient involved.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
         @GetMapping("/find")
         public ResponseEntity<List<AppointmentDTO>> findByDocAndPatientId ( @RequestParam int doctorId, @RequestParam
@@ -168,7 +201,15 @@ public class AppointmentController {
         @Operation(
                 summary = "Get all appointments",
                 description = "Returns a complete list of all appointments in the system. Accessible by ADMIN only.",
-                security = @SecurityRequirement(name = "bearerAuth")
+                security = @SecurityRequirement(name = "bearerAuth"),
+                responses = {
+                        @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                        @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                        @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                        @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                        @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                        @ApiResponse(responseCode = "500", description = "Internal Server Error")}
         )
         @GetMapping("/findall")
         public ResponseEntity<List<AppointmentDTO>> findAll ()throws AccessDeniedException {

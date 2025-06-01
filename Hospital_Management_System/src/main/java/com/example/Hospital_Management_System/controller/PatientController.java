@@ -10,6 +10,7 @@ import com.example.Hospital_Management_System.repo.PatientRepo;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -37,7 +38,15 @@ public class PatientController {
     //permit all
     @Operation(
             summary = "Register a new patient",
-            description = "Registers a new patient. Accessible by everyone."
+            description = "Registers a new patient. Accessible by everyone.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
     @PostMapping("/patient_register")
     public ResponseEntity<PatientDTO> save(@Valid @RequestBody PatientSaveDTO patientSaveDTO){
@@ -61,7 +70,15 @@ public class PatientController {
    @Operation(
            summary = "Get all patients",
            description = "Fetches a list of all registered patients. Accessible only by admin users.",
-           security = @SecurityRequirement(name = "bearerAuth")
+           security = @SecurityRequirement(name = "bearerAuth"),
+           responses = {
+                   @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                   @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                   @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                   @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                   @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                   @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                   @ApiResponse(responseCode = "500", description = "Internal Server Error")}
    )
 
     @GetMapping("/patient/findall")
@@ -82,7 +99,15 @@ public class PatientController {
 @Operation(
         summary = "Find patient by ID",
         description = "Fetches patient information by patient ID. Accessible by admin,or the patient themselves.",
-        security = @SecurityRequirement(name = "bearerAuth")
+        security = @SecurityRequirement(name = "bearerAuth"),
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                @ApiResponse(responseCode = "500", description = "Internal Server Error")}
 )
 
 @GetMapping("/patient/{patientId}")

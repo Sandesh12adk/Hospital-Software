@@ -8,6 +8,7 @@ import com.example.Hospital_Management_System.model.Department;
 import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.DepartmentService;
 import com.example.Hospital_Management_System.service.UserService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,15 @@ public class DepartmentController {
         @Operation(
                 summary = "Create a new department",
                 description = "Allows an ADMIN to create a new medical department with a name and description.",
-                security = @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "bearerAuth")
+                security = @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "bearerAuth"),
+                responses = {
+                        @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                        @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                        @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                        @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                        @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                        @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
         @PostMapping("/save")
         public ResponseEntity<DepartmentDTO> save(@Valid @RequestBody DepartmentSaveDTO departmentSaveDTO){
@@ -56,7 +65,15 @@ public class DepartmentController {
      */
     @Operation(
             summary = "Get all departments",
-            description = "Retrieves a list of all medical departments. This endpoint is publicly accessible."
+            description = "Retrieves a list of all medical departments. This endpoint is publicly accessible.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
         @GetMapping("/findall")
         public ResponseEntity<List<DepartmentDTO>> findAll(){
@@ -73,7 +90,15 @@ public class DepartmentController {
      */
     @io.swagger.v3.oas.annotations.Operation(
             summary = "Get department by ID",
-            description = "Fetches a department's details using its ID. This endpoint is publicly accessible."
+            description = "Fetches a department's details using its ID. This endpoint is publicly accessible.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
         @GetMapping("/{id}")
         public ResponseEntity<DepartmentDTO> findById(@PathVariable int id){

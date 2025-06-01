@@ -5,6 +5,7 @@ import com.example.Hospital_Management_System.model.User;
 import com.example.Hospital_Management_System.service.UserService;
 import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +32,15 @@ public class UserCustomizationController {
     @Operation(
             summary = "Update user password",
             description = "Allows an authenticated user to update their password by verifying the old password.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
     @PostMapping("/password")
     public ResponseEntity<PasswordUpdateDTO> updatePassword(@Valid @RequestBody PasswordUpdateDTO passwordUpdateDTO) throws AccessDeniedException {

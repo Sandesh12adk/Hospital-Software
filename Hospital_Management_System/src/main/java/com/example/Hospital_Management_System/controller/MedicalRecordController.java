@@ -11,6 +11,7 @@ import com.example.Hospital_Management_System.service.AppointmentService;
 import com.example.Hospital_Management_System.service.GrantAccess;
 import com.example.Hospital_Management_System.service.MedicalRecordService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,15 @@ public class MedicalRecordController {
     @Operation(
             summary = "Save a new medical record",
             description = "Allows the doctor of a specific appointment to save a medical record. Only accessible by the doctor who owns the appointment.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
 
     @PostMapping("/save")
@@ -69,7 +78,15 @@ public class MedicalRecordController {
     @Operation(
             summary = "Get medical records by patient ID",
             description = "Fetches all medical records associated with a given patient ID. Accessible by admin, all doctors, or the patient themselves.",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
+                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
+                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
     )
 
     @GetMapping("/find_by_patientid/{patientId}")
