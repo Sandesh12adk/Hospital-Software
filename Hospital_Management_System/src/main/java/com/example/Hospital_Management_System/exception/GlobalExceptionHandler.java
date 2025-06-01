@@ -3,6 +3,7 @@ package com.example.Hospital_Management_System.exception;
 import org.springframework.expression.AccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,11 +36,11 @@ public class GlobalExceptionHandler {
                 "Cause:"+ ex.getCause();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetail);
     }
-    @ExceptionHandler(AccessException.class)
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> handleAccessDeniedException(AccessException ex){
         String errorDetail= "Exceptoin:" + ex.getClass().getSimpleName()+"\n"+
                 "Message:"+ ex.getMessage()+"\n"+
                 "Cause:"+ ex.getCause();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetail);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDetail);
     }
 }
