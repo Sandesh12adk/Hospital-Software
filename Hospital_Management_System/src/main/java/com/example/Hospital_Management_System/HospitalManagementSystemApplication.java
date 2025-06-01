@@ -28,7 +28,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 )
 
 
-
+@SecurityScheme(
+		name = "bearerAuth",
+		type = SecuritySchemeType.HTTP,
+		scheme = "bearer",
+		bearerFormat = "JWT"
+)
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableScheduling
