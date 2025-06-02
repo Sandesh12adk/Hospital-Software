@@ -1,11 +1,10 @@
-package com.example.Hospital_Management_System.repo;
+package com.example.HMS_UI.repo;
 
-import com.example.Hospital_Management_System.model.Appointment;
+import com.example.HMS_UI.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.jmx.export.naming.IdentityNamingStrategy;
 
 import java.util.List;
 

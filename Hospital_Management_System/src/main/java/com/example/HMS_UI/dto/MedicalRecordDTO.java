@@ -1,6 +1,5 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

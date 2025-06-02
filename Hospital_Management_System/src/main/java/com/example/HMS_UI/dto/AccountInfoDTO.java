@@ -1,9 +1,7 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import com.example.Hospital_Management_System.service.GrantAccess;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

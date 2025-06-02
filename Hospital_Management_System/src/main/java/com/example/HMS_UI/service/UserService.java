@@ -1,15 +1,11 @@
-package com.example.Hospital_Management_System.service;
+package com.example.HMS_UI.service;
 
 
-import com.example.Hospital_Management_System.constant.APPOINTMENT_STATUS;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Appointment;
-import com.example.Hospital_Management_System.repo.UserRepo;
-import com.example.Hospital_Management_System.model.User;
+import com.example.HMS_UI.repo.UserRepo;
+import com.example.HMS_UI.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

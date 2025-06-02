@@ -1,4 +1,4 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
 import lombok.Data;
 

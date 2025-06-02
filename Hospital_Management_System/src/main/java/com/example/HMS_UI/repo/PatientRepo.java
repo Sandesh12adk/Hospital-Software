@@ -1,6 +1,6 @@
-package com.example.Hospital_Management_System.repo;
+package com.example.HMS_UI.repo;
 
-import com.example.Hospital_Management_System.model.Patient;
+import com.example.HMS_UI.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

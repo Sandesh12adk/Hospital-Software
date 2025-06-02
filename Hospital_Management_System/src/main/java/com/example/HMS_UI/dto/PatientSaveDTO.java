@@ -1,6 +1,6 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
+import com.example.HMS_UI.constant.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;

@@ -1,9 +1,9 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.dto.update.PasswordUpdateDTO;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.UserService;
-import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
+import com.example.HMS_UI.dto.update.PasswordUpdateDTO;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.UserService;
+import com.example.HMS_UI.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

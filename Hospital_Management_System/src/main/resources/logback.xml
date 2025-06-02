@@ -39,7 +39,7 @@
     </root>
 
     <!-- LOG "com.eazybytes.eazyschool*" at ERROR level -->
-    <logger name="com.example.Hospital_Management_System.*" level="error" additivity="false">
+    <logger name="com.example.HMS_UI.*" level="error" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

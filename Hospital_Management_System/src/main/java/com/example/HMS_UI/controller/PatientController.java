@@ -1,14 +1,14 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.dto.PatientDTO;
-import com.example.Hospital_Management_System.dto.PatientSaveDTO;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Patient;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.repo.PatientRepo;
-import com.example.Hospital_Management_System.service.GrantAccess;
-import com.example.Hospital_Management_System.service.UserService;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.dto.PatientDTO;
+import com.example.HMS_UI.dto.PatientSaveDTO;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.model.Patient;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.repo.PatientRepo;
+import com.example.HMS_UI.service.GrantAccess;
+import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -16,15 +16,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
 @Tag(name = "Patient APIs", description = "New Register, FindAll, Find-By-Id")
@@ -36,20 +37,16 @@ public class PatientController {
     @Autowired
     private PatientRepo patientRepo;
     //permit all
-    @Operation(
-            summary = "Register a new patient",
-            description = "Registers a new patient. Accessible by everyone.",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
-                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
-                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
-                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
-                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
-                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
-    )
-    @PostMapping("/patient_register")
-    public ResponseEntity<PatientDTO> save(@Valid @RequestBody PatientSaveDTO patientSaveDTO){
+    //final
+
+    @GetMapping("/register_patient")
+    public String showForm(Model model) {
+        model.addAttribute("patient", new PatientSaveDTO());
+        return "patient_register_page";
+    }
+
+    @PostMapping("/patient_save")
+    public String save(  @ModelAttribute("patient") @Valid  PatientSaveDTO patientSaveDTO){
         BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
        User user= new User();
        user.setPassword(encoder.encode(patientSaveDTO.getPassword()));
@@ -64,8 +61,14 @@ public class PatientController {
        user.setPatient(patient);
        userService.save(user);   //Behind the scene .save(user) is setting the Id of user and doctor
         //before saving to database so after saving if we do user.getId() it return he valid id in database
-        return ResponseEntity.ok(createPatientDTO(user));
+        return "login";
     }
+
+    @GetMapping("/patient/dashboard")
+    public String patinetDashboard(){
+        return "patient_dashboard";
+    }
+
    //admin only
    @Operation(
            summary = "Get all patients",

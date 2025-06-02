@@ -1,8 +1,7 @@
-package com.example.Hospital_Management_System.service.securityservice;
+package com.example.HMS_UI.service.securityservice;
 
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.repo.UserRepo;
-import com.example.Hospital_Management_System.service.UserService;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

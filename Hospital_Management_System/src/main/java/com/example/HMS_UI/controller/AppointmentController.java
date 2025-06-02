@@ -1,19 +1,19 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.constant.APPOINTMENT_STATUS;
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.dto.AppointmentDTO;
-import com.example.Hospital_Management_System.dto.AppointmentSaveDTO;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Appointment;
-import com.example.Hospital_Management_System.model.Doctor;
-import com.example.Hospital_Management_System.model.Patient;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.repo.DoctorRepo;
-import com.example.Hospital_Management_System.repo.PatientRepo;
-import com.example.Hospital_Management_System.service.AppointmentService;
-import com.example.Hospital_Management_System.service.GrantAccess;
-import com.example.Hospital_Management_System.service.UserService;
+import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.dto.AppointmentDTO;
+import com.example.HMS_UI.dto.AppointmentSaveDTO;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.model.Doctor;
+import com.example.HMS_UI.model.Patient;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.repo.DoctorRepo;
+import com.example.HMS_UI.repo.PatientRepo;
+import com.example.HMS_UI.service.AppointmentService;
+import com.example.HMS_UI.service.GrantAccess;
+import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,10 +24,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 
 @RestController

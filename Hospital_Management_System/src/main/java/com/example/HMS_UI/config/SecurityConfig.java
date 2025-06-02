@@ -1,14 +1,11 @@
-package com.example.Hospital_Management_System.config;
+package com.example.HMS_UI.config;
 
-
-import com.example.Hospital_Management_System.constant.USER_ROLE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,71 +18,115 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  @Autowired
-  private Filter filter;
+
+    @Autowired
+    private Filter filter;
+
+    @Autowired
+    private CustomeSuccessHandler successHandler;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests((auth) ->
-                        auth.requestMatchers(
-                                        "/user/doctor/make_as_schelduded/{appointmentId}",
-                                        "/user/doctor/make_as_canceled/{appointmentId}",
-                                        "/medicalrecord/save"
-                                ).hasRole("DOCTOR") // or "ROLE_DOCTOR" depending on enum
+        http
+                .authorizeHttpRequests(auth -> auth
 
-                                .requestMatchers(
-                                        "/admin/register",
-                                        "/appointment/create",
-                                        "/appointment/findall",
-                                        "/department/save",
-                                        "/user/patient/findall"
-                                ).hasRole("ADMIN")
+                        // 👩‍⚕️ Public pages (open to all users)
+                        .requestMatchers(
+                                "/login",
+                                "/home",
+                                "/docs",
+                                "/user/hello",
+                                "/regi",
+                                "/save",
+                                "/register_patient",
+                                "/user/patient_save",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/images/**",
+                                "/css/**",
+                                "/js/**",
+                                "/webjars/**",
+                                "/favicon.ico",
+                                "/template/**"
+                        ).permitAll()
 
-                                .requestMatchers(
-                                        "/appointment/find-by-doctorid/{docId}",
-                                        "/appointment/find-by-docid-and-status/**"
-                                ).hasAnyRole("DOCTOR", "ADMIN")
+                        // 🔐 Admin-only endpoints
+                        .requestMatchers(
+                                "/admin/register",
+                                "/appointment/create",
+                                "/appointment/findall",
+                                "/department/save",
+                                "/user/patient/findall",
+                                "/admin/dashboard"
+                        ).hasRole("ADMIN")
 
-                                .requestMatchers(
-                                        "/appointment/findbypatientid/{patientId}",
-                                        "/user/patient/{patiendId}"
-                                ).hasAnyRole("ADMIN", "PATIENT")
+                        // 👨‍⚕️ Doctor-only endpoints
+                        .requestMatchers(
+                                "/user/doctor/dashboard",
+                                "/user/doctor/make_as_schelduded/{appointmentId}",
+                                "/user/doctor/make_as_canceled/{appointmentId}",
+                                "/user/doctor/dashboard"
+                        ).hasRole("DOCTOR")
+                        .requestMatchers("/user/patient/dashboard").hasRole("PATIENT")
+                        // 👨‍⚕️👩‍⚕️ Shared access for Doctor & Admin
+                        .requestMatchers(
+                                "/appointment/find-by-doctorid/{docId}",
+                                "/appointment/find-by-docid-and-status/**"
+                        ).hasAnyRole("DOCTOR", "ADMIN")
 
-                                .requestMatchers(
-                                        "/docs",
-                                        "/department/findall",
-                                        "/department/{id}",
-                                        "/user/hello",
-                                        "/user/doctor/register",
-                                        "/login",
-                                        "/swagger-ui/**",
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui.html",
-                                       "/user/patient_register"
-                                         // Temporary wildcard for testing
-                                ).permitAll()
-                                .anyRequest().authenticated()
+                        // 👨‍⚕️👩‍⚕️ Patient-specific data access
+                        .requestMatchers(
+                                "/appointment/findbypatientid/{patientId}",
+                                "/user/patient/{patiendId}"
+                        ).hasAnyRole("PATIENT", "ADMIN")
+
+                        // 🛑 Any other endpoint must be authenticated
+                        .anyRequest().authenticated()
                 )
-                .sessionManagement((session) ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-        // Removed httpBasic()
 
+                // 🔐 Login and logout configuration
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .successHandler(successHandler)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout=true") // Redirect to login page with logout message
+                        .invalidateHttpSession(true)           // Invalidate the session
+                        .clearAuthentication(true)             // Clear the authentication
+                        .deleteCookies("JSESSIONID")           // Optional: clear session cookie
+                        .permitAll()
+                )
+
+
+                // ⚙️ Session handling
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                );
+
+        // 🔄 Custom Filter before default auth filter
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
-  @Autowired
-  private UserDetailsService userDetailsService;
-  @Bean
-    public AuthenticationProvider authenticationProvider(){
-      DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
-      provider.setPasswordEncoder(new BCryptPasswordEncoder(5));
-      provider.setUserDetailsService(userDetailsService);
-      return provider;
-  }
 
-  @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
-    return authenticationConfiguration.getAuthenticationManager();
-  }
+    // 🔐 Authentication Provider Bean
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(5));
+        return provider;
+    }
+
+    // 🔐 Authentication Manager Bean
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 }

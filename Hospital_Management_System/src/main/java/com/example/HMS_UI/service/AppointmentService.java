@@ -1,9 +1,9 @@
-package com.example.Hospital_Management_System.service;
+package com.example.HMS_UI.service;
 
-import com.example.Hospital_Management_System.constant.APPOINTMENT_STATUS;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Appointment;
-import com.example.Hospital_Management_System.repo.AppointmentRepo;
+import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.repo.AppointmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

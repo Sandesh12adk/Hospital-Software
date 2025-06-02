@@ -1,9 +1,9 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.dto.AdminSaveDTO;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.UserService;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.dto.AdminSaveDTO;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -12,9 +12,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/admin")
 @CrossOrigin(origins = "*") // Only for local development!
 @Tag(name="Admin APIs")
@@ -47,4 +48,9 @@ public class AdminController {
         userService.save(user);
         return ResponseEntity.ok("Saved");
     }
+    @GetMapping("/dashboard")
+    public String adminDashboard(){
+        return "admin_dashboard";
+    }
+
 }

@@ -1,6 +1,6 @@
-package com.example.Hospital_Management_System.service.securityservice;
+package com.example.HMS_UI.service.securityservice;
 
-import com.example.Hospital_Management_System.model.User;
+import com.example.HMS_UI.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

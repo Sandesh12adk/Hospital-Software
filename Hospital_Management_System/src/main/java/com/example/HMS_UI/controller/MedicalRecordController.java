@@ -1,15 +1,15 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.dto.MedicalRecordDTO;
-import com.example.Hospital_Management_System.dto.MedicalRecordSaveDTO;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Appointment;
-import com.example.Hospital_Management_System.model.MedicalRecord;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.AppointmentService;
-import com.example.Hospital_Management_System.service.GrantAccess;
-import com.example.Hospital_Management_System.service.MedicalRecordService;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.dto.MedicalRecordDTO;
+import com.example.HMS_UI.dto.MedicalRecordSaveDTO;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.model.MedicalRecord;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.AppointmentService;
+import com.example.HMS_UI.service.GrantAccess;
+import com.example.HMS_UI.service.MedicalRecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

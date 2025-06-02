@@ -1,19 +1,14 @@
-package com.example.Hospital_Management_System.model;
+package com.example.HMS_UI.model;
 
-import com.example.Hospital_Management_System.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "appointment")

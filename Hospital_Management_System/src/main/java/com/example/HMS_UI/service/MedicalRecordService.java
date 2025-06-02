@@ -1,11 +1,9 @@
-package com.example.Hospital_Management_System.service;
+package com.example.HMS_UI.service;
 
-import com.example.Hospital_Management_System.model.MedicalRecord;
-import com.example.Hospital_Management_System.repo.MedicalRecordRepo;
+import com.example.HMS_UI.model.MedicalRecord;
+import com.example.HMS_UI.repo.MedicalRecordRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MedicalRecordService {

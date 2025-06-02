@@ -1,13 +1,10 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.dto.DepartmentDTO;
-import com.example.Hospital_Management_System.dto.DepartmentSaveDTO;
-import com.example.Hospital_Management_System.dto.DoctorSaveDTO;
-import com.example.Hospital_Management_System.exception.ResourceNotFoundException;
-import com.example.Hospital_Management_System.model.Department;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.DepartmentService;
-import com.example.Hospital_Management_System.service.UserService;
+import com.example.HMS_UI.dto.DepartmentDTO;
+import com.example.HMS_UI.dto.DepartmentSaveDTO;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.model.Department;
+import com.example.HMS_UI.service.DepartmentService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController

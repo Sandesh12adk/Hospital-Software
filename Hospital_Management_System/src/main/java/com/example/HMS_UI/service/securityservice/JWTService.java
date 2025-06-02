@@ -1,9 +1,7 @@
-package com.example.Hospital_Management_System.service.securityservice;
+package com.example.HMS_UI.service.securityservice;
 
-import com.example.Hospital_Management_System.dto.LoginSaveDTO;
-import com.example.Hospital_Management_System.model.User;
+import com.example.HMS_UI.dto.LoginSaveDTO;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
-import javax.crypto.KeyGenerator;
+
 import javax.crypto.SecretKey;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.function.Function;
 

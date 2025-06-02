@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Create Appointment</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">Create New Appointment</h2>
+            <form th:action="@{/appointment/create}" th:object="${appointmentSaveDTO}" method="post">
+                <div class="mb-3">
+                    <label for="doctorId" class="form-label">Doctor</label>
+                    <select class="form-select" id="doctorId" th:field="*{doctorId}" required>
+                        <option value="">Select Doctor</option>
+                        <option th:each="doctor : ${doctors}"
+                                th:value="${doctor.id}"
+                                th:text="${doctor.user.name + ' - ' + doctor.specialization}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="patientId" class="form-label">Patient</label>
+                    <select class="form-select" id="patientId" th:field="*{patientId}" required>
+                        <option value="">Select Patient</option>
+                        <option th:each="patient : ${patients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.user.name}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" th:field="*{date}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="time" class="form-label">Time</label>
+                    <input type="time" class="form-control" id="time" th:field="*{time}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="reason" class="form-label">Reason</label>
+                    <textarea class="form-control" id="reason" th:field="*{reason}" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Appointment</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

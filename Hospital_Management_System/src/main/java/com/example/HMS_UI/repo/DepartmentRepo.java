@@ -1,6 +1,6 @@
-package com.example.Hospital_Management_System.repo;
+package com.example.HMS_UI.repo;
 
-import com.example.Hospital_Management_System.model.Department;
+import com.example.HMS_UI.model.Department;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

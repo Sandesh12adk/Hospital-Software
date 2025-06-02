@@ -1,8 +1,5 @@
-package com.example.Hospital_Management_System.dto.update;
+package com.example.HMS_UI.dto.update;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

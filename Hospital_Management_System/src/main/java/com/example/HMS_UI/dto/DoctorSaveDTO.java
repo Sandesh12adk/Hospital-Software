@@ -1,11 +1,10 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
+import com.example.HMS_UI.constant.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Schema(description = "DTO for saving a doctor's account and details")
@@ -41,7 +40,7 @@ public class DoctorSaveDTO {
 
     @Min(value = 1, message = "Department ID must be a positive number")
     @Schema(description = "ID of the department the doctor belongs to", example = "3")
-    private int departmentId;
+    private Integer departmentId;
 
     public DoctorSaveDTO(){
         role = USER_ROLE.DOCTOR;

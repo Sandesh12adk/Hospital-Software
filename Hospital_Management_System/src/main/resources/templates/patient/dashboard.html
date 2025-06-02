@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Patient Dashboard</title>
+</head>
+<body>
+<section>
+    <h2>Patient Dashboard</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">My Appointments</h5>
+                    <p class="card-text">View and manage your appointments</p>
+                    <a th:href="@{/appointment/findbypatientid/} + ${patient.id}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Medical Records</h5>
+                    <p class="card-text">View your medical records</p>
+                    <a th:href="@{/medicalrecord/find_by_patientid/} + ${patient.id}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

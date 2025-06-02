@@ -1,10 +1,9 @@
-package com.example.Hospital_Management_System.model;
+package com.example.HMS_UI.model;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
+import com.example.HMS_UI.constant.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

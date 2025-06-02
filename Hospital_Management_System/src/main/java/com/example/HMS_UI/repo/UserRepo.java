@@ -1,7 +1,7 @@
-package com.example.Hospital_Management_System.repo;
+package com.example.HMS_UI.repo;
 
-import com.example.Hospital_Management_System.model.Doctor;
-import com.example.Hospital_Management_System.model.User;
+import com.example.HMS_UI.model.Doctor;
+import com.example.HMS_UI.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

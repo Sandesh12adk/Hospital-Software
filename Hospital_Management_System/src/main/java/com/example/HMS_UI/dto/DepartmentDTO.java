@@ -1,7 +1,5 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data

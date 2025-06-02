@@ -1,7 +1,7 @@
-package com.example.Hospital_Management_System.service;
+package com.example.HMS_UI.service;
 
-import com.example.Hospital_Management_System.repo.DepartmentRepo;
-import com.example.Hospital_Management_System.model.Department;
+import com.example.HMS_UI.repo.DepartmentRepo;
+import com.example.HMS_UI.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

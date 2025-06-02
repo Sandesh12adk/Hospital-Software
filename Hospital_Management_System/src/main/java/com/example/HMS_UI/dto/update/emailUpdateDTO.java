@@ -1,4 +1,4 @@
-package com.example.Hospital_Management_System.dto.update;
+package com.example.HMS_UI.dto.update;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;

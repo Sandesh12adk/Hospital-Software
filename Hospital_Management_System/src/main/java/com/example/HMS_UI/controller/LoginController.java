@@ -1,24 +1,21 @@
-package com.example.Hospital_Management_System.controller;
+package com.example.HMS_UI.controller;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.dto.AccountInfoDTO;
-import com.example.Hospital_Management_System.dto.LoginDTO;
-import com.example.Hospital_Management_System.dto.LoginSaveDTO;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.GrantAccess;
-import com.example.Hospital_Management_System.service.securityservice.JWTService;
-import com.example.Hospital_Management_System.service.securityservice.MyUserDetailsService;
-import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.dto.AccountInfoDTO;
+import com.example.HMS_UI.dto.LoginDTO;
+import com.example.HMS_UI.dto.LoginSaveDTO;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.GrantAccess;
+import com.example.HMS_UI.service.securityservice.JWTService;
+import com.example.HMS_UI.service.securityservice.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.AccessDeniedException;
 import java.util.*;
 
-@RestController
+@Controller
 @CrossOrigin(origins = "*")
 @Tag(
         name = "Login APIs",
@@ -42,51 +39,12 @@ public class LoginController {
     private GrantAccess grantAccess;
 
     //permitall
-    @Operation(
-            summary = "Authenticate user and return JWT token",
-            description = "Validates user credentials and returns a JWT token upon successful authentication. Accessible by all.",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
-                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
-                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
-                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
-                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
-                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
-    )
-
-    @PostMapping("/login")
-    public ResponseEntity<LoginDTO> returnJWTToken(@RequestBody LoginSaveDTO loginSaveDTO) throws AccessDeniedException {
-        String jwtToken = "";
-        List<String> roles = new ArrayList<>();
-        Authentication auth = jwtService.getAuthenticatontion(loginSaveDTO);
-        if (auth.isAuthenticated()) {     // This is the Entry point of Security
-            UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
-            User user = userPrincipal.getUser();
-            jwtToken = jwtService.generateToken(loginSaveDTO.getEmail());
-            auth.getAuthorities().forEach((grantedAuthority) ->
-                    roles.add(grantedAuthority.getAuthority())
-            );
-            LoginDTO loginDTO= new LoginDTO();
-            loginDTO.setJwtToken(jwtToken);
-            return ResponseEntity.ok(loginDTO);
-        }
-        throw new AccessDeniedException("Invalid Credientals");
+                    // final
+    @GetMapping("/login")
+   public String login(){
+        return "login";
     }
 
-    @Operation(
-            summary = "Get authenticated user's account info",
-            description = "Returns the current authenticated user's basic account information including roles. Requires authentication.",
-            security = @SecurityRequirement(name = "bearerAuth"),
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful Operation"),
-                    @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
-                    @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
-                    @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
-                    @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
-                    @ApiResponse(responseCode = "500", description = "Internal Server Error")}
-    )
 
     @GetMapping("/accountinfo")
     public ResponseEntity<AccountInfoDTO> myAccount() {

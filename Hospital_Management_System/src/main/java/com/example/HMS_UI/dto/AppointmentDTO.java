@@ -1,6 +1,6 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
-import com.example.Hospital_Management_System.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import lombok.Data;
 
 import java.time.LocalDate;

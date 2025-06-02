@@ -1,10 +1,8 @@
-package com.example.Hospital_Management_System.service;
+package com.example.HMS_UI.service;
 
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.service.securityservice.MyUserDetailsService;
-import com.example.Hospital_Management_System.service.securityservice.UserPrincipal;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.securityservice.UserPrincipal;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

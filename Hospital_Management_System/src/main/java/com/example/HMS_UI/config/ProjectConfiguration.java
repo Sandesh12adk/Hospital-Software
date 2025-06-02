@@ -1,8 +1,8 @@
-package com.example.Hospital_Management_System.config;
+package com.example.HMS_UI.config;
 
-import com.example.Hospital_Management_System.constant.USER_ROLE;
-import com.example.Hospital_Management_System.model.User;
-import com.example.Hospital_Management_System.repo.UserRepo;
+import com.example.HMS_UI.constant.USER_ROLE;
+import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.repo.UserRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

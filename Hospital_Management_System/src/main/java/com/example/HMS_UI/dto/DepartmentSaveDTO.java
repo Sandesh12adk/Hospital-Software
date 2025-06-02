@@ -1,4 +1,4 @@
-package com.example.Hospital_Management_System.dto;
+package com.example.HMS_UI.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
