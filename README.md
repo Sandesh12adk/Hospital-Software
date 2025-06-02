@@ -91,3 +91,4 @@ Access Swagger UI at: [http://localhost:8080/swagger-ui.html](http://localhost:8
 ![Admin Login Page](docs.jpg)
 
 ⭐ **Star this repo if you find it useful!** ⭐   
+# Hospital-application-UI-with-Thymeleaf
