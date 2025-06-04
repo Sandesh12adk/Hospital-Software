@@ -11,14 +11,17 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
+@Controller
 @RequestMapping("/department")
 @Slf4j
 @CrossOrigin(origins="*")
@@ -35,27 +38,24 @@ public class DepartmentController {
         private DepartmentService departmentService;
 
         //Admin only
-        @Operation(
-                summary = "Create a new department",
-                description = "Allows an ADMIN to create a new medical department with a name and description.",
-                security = @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "bearerAuth"),
-                responses = {
-                        @ApiResponse(responseCode = "200", description = "Successful Operation"),
-                        @ApiResponse(responseCode = "400", description = "Bad Request - Invalid ID or parameters"),
-                        @ApiResponse(responseCode = "401", description = "Unauthorized - JWT token missing or invalid"),
-                        @ApiResponse(responseCode = "403", description = "Forbidden - You do not have permission to access this resource"),
-                        @ApiResponse(responseCode = "404", description = "Not Found - No resource found with given ID"),
-                        @ApiResponse(responseCode = "409", description = "Conflict - Resource already exists or violates constraints"),
-                        @ApiResponse(responseCode = "500", description = "Internal Server Error")}
-    )
-        @PostMapping("/save")
-        public ResponseEntity<DepartmentDTO> save(@Valid @RequestBody DepartmentSaveDTO departmentSaveDTO){
-           Department department= new Department();
-           department.setName(departmentSaveDTO.getName());
-           department.setDescription(departmentSaveDTO.getDescription());
-           departmentService.save(department);
-            return ResponseEntity.ok(createDepartmentDTO(department));
+
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute DepartmentSaveDTO departmentSaveDTO,
+                       BindingResult result,
+                       RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            return "admin_dashboard"; // return to form with errors
         }
+
+        Department department = new Department();
+        department.setName(departmentSaveDTO.getName());
+        department.setDescription(departmentSaveDTO.getDescription());
+        departmentService.save(department);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Department added successfully!");
+        return "redirect:/admin/dashboard";
+    }
 
     /**
      * PUBLIC access

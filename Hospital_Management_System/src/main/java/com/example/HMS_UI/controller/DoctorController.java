@@ -224,7 +224,7 @@ departments.forEach(a->
             }
             if(user.getDoctor().getDepartment()!=null){
                 doctorDTO.setDepartmentId(user.getDoctor().getDepartment().getId());
-                doctorDTO.setDeparementName(user.getDoctor().getDepartment().getName());
+                doctorDTO.setDepartmentName(user.getDoctor().getDepartment().getName());
             }
            if(user.getDoctor().getDepartment().getDescription()!=null){
                doctorDTO.setDescription(user.getDoctor().getDepartment().getDescription());

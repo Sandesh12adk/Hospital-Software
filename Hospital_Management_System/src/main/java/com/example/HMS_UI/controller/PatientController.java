@@ -63,6 +63,24 @@ public class PatientController {
         //before saving to database so after saving if we do user.getId() it return he valid id in database
         return "login";
     }
+    @PostMapping("/patient_save_by_admin")
+    public String saveByAdmin(  @ModelAttribute("patient") @Valid  PatientSaveDTO patientSaveDTO){
+        BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
+        User user= new User();
+        user.setPassword(encoder.encode(patientSaveDTO.getPassword()));
+        user.setName(patientSaveDTO.getName());
+        user.setRole(patientSaveDTO.getRole());
+        user.setEmail(patientSaveDTO.getEmail());
+
+        Patient patient= new Patient();
+        patient.setAge(patientSaveDTO.getAge());
+        patient.setGender(patientSaveDTO.getGender());
+        patient.setUser(user);
+        user.setPatient(patient);
+        userService.save(user);   //Behind the scene .save(user) is setting the Id of user and doctor
+        //before saving to database so after saving if we do user.getId() it return he valid id in database
+       return "redirect:/admin/dashboard";
+    }
 
     @GetMapping("/patient/dashboard")
     public String patinetDashboard(){

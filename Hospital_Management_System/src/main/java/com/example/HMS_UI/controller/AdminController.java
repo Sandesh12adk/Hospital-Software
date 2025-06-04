@@ -2,6 +2,9 @@ package com.example.HMS_UI.controller;
 
 import com.example.HMS_UI.constant.USER_ROLE;
 import com.example.HMS_UI.dto.AdminSaveDTO;
+import com.example.HMS_UI.dto.AppointmentSaveDTO;
+import com.example.HMS_UI.dto.DepartmentSaveDTO;
+import com.example.HMS_UI.dto.DoctorSaveDTO;
 import com.example.HMS_UI.model.User;
 import com.example.HMS_UI.service.AppointmentService;
 import com.example.HMS_UI.service.DepartmentService;
@@ -17,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.function.Function;
 
 @Controller
 @RequestMapping("/admin")
@@ -57,12 +62,19 @@ public class AdminController {
     }
     @GetMapping("/dashboard")
     public String adminDashboard(Model model){
+
         model.addAttribute("appointmentCount",appointmentService.appointmentCount());
         model.addAttribute("doctorCount",userService.doctorCount(USER_ROLE.DOCTOR));
         model.addAttribute("patientCount",userService.patientCount(USER_ROLE.PATIENT));
         model.addAttribute("departmentCount",departmentService.departmentCount());
         model.addAttribute("departments",departmentService.departmentDashboardDTO());
+        model.addAttribute("patients",userService.patientDashboardDTOList());
+        model.addAttribute("doctors",userService.DoctorDashboardDTOList());
+        model.addAttribute("recentAppointments",appointmentService.dashboardAppointmentDTOList());
+        model.addAttribute("appointments",appointmentService.dashboardAppointmentDTOList());
+        model.addAttribute("appointmentSaveDTO", new AppointmentSaveDTO());
+        model.addAttribute("doctorSaveDTO", new DoctorSaveDTO());
+        model.addAttribute("departmentSaveDTO", new DepartmentSaveDTO());
         return "admin_dashboard";
     }
-
 }

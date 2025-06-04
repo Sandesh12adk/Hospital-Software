@@ -37,7 +37,6 @@ public class PatientSaveDTO {
     private final USER_ROLE role= USER_ROLE.PATIENT;
 
     @NotBlank(message = "Gender must not be blank")
-    @Pattern(regexp = "Male|Female|Other", message = "Gender must be Male, Female, or Other")
     @Schema(description = "Gender of the patient", example = "Female")
     private String gender;
 

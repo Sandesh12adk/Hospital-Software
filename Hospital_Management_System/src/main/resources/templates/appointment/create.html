@@ -9,6 +9,10 @@
         <div class="col-md-8">
             <h2 class="mb-4">Create New Appointment</h2>
             <form th:action="@{/appointment/create}" th:object="${appointmentSaveDTO}" method="post">
+                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
                 <div class="mb-3">
                     <label for="doctorId" class="form-label">Doctor</label>
                     <select class="form-select" id="doctorId" th:field="*{doctorId}" required>

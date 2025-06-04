@@ -110,6 +110,41 @@ public class RegisterController {
 
         return "redirect:/login?registered";
     }
+    @PreAuthorize("permitAll()")
+    @PostMapping("save_by_admin")
+    public String saveDoctorByAmind(@ModelAttribute("doctorSaveDTO") @Valid DoctorSaveDTO doctorSaveDTO,
+                             BindingResult result,
+                             Model model) {
 
+        if (result.hasErrors()) {
+            // Repopulate departments if there are errors
+            List<Department> departments = StreamSupport
+                    .stream(departmentService.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+            model.addAttribute("departments", departments);
+            return "doctor_registration";
 
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
+        Department department = departmentService.findById(doctorSaveDTO.getDepartmentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department Not Found"));
+
+        User user = new User();
+        user.setName(doctorSaveDTO.getName());
+        user.setPassword(encoder.encode(doctorSaveDTO.getPassword()));
+        user.setRole(USER_ROLE.DOCTOR);
+        user.setEmail(doctorSaveDTO.getEmail());
+        Doctor doctor = new Doctor();
+        doctor.setDepartment(department);
+        doctor.setSpecialization(doctorSaveDTO.getSpecialization());
+        doctor.setUser(user);
+
+        user.setDoctor(doctor);
+        userService.save(user);
+
+        return "redirect:/admin/dashboard#doctor";
+    }
+
+    }
 }

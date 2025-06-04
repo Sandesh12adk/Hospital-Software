@@ -1,6 +1,7 @@
 package com.example.HMS_UI.service;
 
 import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.dto.DashboardAppointmentDTO;
 import com.example.HMS_UI.exception.ResourceNotFoundException;
 import com.example.HMS_UI.model.Appointment;
 import com.example.HMS_UI.repo.AppointmentRepo;
@@ -68,5 +69,30 @@ public class AppointmentService {
     }
     public int appointmentCount(){
         return appointmentRepo.findAll().size();
+    }
+    public List<DashboardAppointmentDTO> dashboardAppointmentDTOList(){
+       return appointmentRepo.findAll()
+                .stream()
+                .filter(appointment -> {return appointment.getDoctor()!=null;})
+                .filter(appointment -> {return appointment.getPatient()!=null;})
+                .filter(appointment -> {return appointment.getDate()!=null;})
+                .filter(appointment -> {return appointment.getTime()!=null;})
+               .filter(appointment -> {return appointment.getPatient().getUser()!=null;})
+               .filter(appointment -> {return appointment.getDoctor().getUser()!=null;})
+                .map(appointment -> {
+                    DashboardAppointmentDTO dashboardAppointmentDTO= new DashboardAppointmentDTO();
+                    dashboardAppointmentDTO.setAppointmentId(appointment.getId());
+                    dashboardAppointmentDTO.setDepartmentName(appointment.getDoctor().getDepartment().getName());
+                    dashboardAppointmentDTO.setAppointmentStatus(appointment.getStatus().name());
+                    dashboardAppointmentDTO.setReason(appointment.getReason());
+                    dashboardAppointmentDTO.setDoctorName(appointment.getDoctor().getUser().getName());
+                    dashboardAppointmentDTO.setLocalDate(appointment.getDate());
+                    dashboardAppointmentDTO.setLocalTime(appointment.getTime());
+                    dashboardAppointmentDTO.setPatientId(appointment.getPatient().getId());
+                    dashboardAppointmentDTO.setDoctorId(appointment.getDoctor().getId());
+                    dashboardAppointmentDTO.setPatientName(appointment.getPatient().getUser().getName());
+                    return dashboardAppointmentDTO;
+                }).toList();
+
     }
 }

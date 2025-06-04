@@ -21,14 +21,18 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@RestController
+@Controller
 @RequestMapping("/appointment")
 @CrossOrigin(origins = "*") // Only for local development!
 @Tag(
@@ -71,19 +75,42 @@ public class AppointmentController {
             }
     )
     @PostMapping("/create")
-    public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentSaveDTO appointmentSaveDTO) throws AccessDeniedException {
-        Patient patient = patientRepo.findById(appointmentSaveDTO.getPatientId()).orElseThrow(() ->
-                new ResourceNotFoundException("Patient Not Found with Id " + appointmentSaveDTO.getPatientId()));
-        Doctor doctor = doctorRepo.findById(appointmentSaveDTO.getDoctorId()).orElseThrow(() ->
-                new ResourceNotFoundException("Doctor Not Found with Id" + appointmentSaveDTO.getDoctorId()));
-        Appointment appointment= new Appointment();
-        appointment.setDoctor(doctor);
-        appointment.setPatient(patient);
-        appointment.setReason(appointmentSaveDTO.getReason());
-        appointment.setTime(appointmentSaveDTO.getTime());
-        appointment.setDate(appointmentSaveDTO.getDate());
-        appointmentService.save(appointment);
-        return ResponseEntity.ok(createAppointmentDTO(appointment));
+    public String createAppointment(
+            @Valid @ModelAttribute("appointmentSaveDTO") AppointmentSaveDTO appointmentSaveDTO,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        // Add doctors and patients to model if validation fails
+        if (result.hasErrors()) {
+            model.addAttribute("doctors", userService.DoctorDashboardDTOList());
+            model.addAttribute("patients", userService.patientDashboardDTOList());
+            return "admin_dashboard"; // Return to form with errors
+        }
+
+        try {
+            Patient patient = patientRepo.findById(appointmentSaveDTO.getPatientId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Patient Not Found"));
+
+            Doctor doctor = doctorRepo.findById(appointmentSaveDTO.getDoctorId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Doctor Not Found"));
+
+            Appointment appointment = new Appointment();
+            appointment.setDoctor(doctor);
+            appointment.setPatient(patient);
+            appointment.setReason(appointmentSaveDTO.getReason());
+            appointment.setTime(appointmentSaveDTO.getTime());
+            appointment.setDate(appointmentSaveDTO.getDate());
+
+            appointmentService.save(appointment);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Appointment created successfully!");
+            return "redirect:/admin/dashboard#appointments"; // Redirect to appointments tab
+
+        } catch (ResourceNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/dashboard#appointments";
+        }
     }
 
     //access: That specific doctor and admin
