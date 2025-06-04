@@ -2,14 +2,16 @@ package com.example.HMS_UI.service;
 
 
 import com.example.HMS_UI.constant.USER_ROLE;
-import com.example.HMS_UI.dto.DepartmentDashboardDTO;
+import com.example.HMS_UI.dto.DoctorDetail;
 import com.example.HMS_UI.dto.DoctorDashboardDTO;
 import com.example.HMS_UI.dto.PatientDashboardDTO;
+import com.example.HMS_UI.exception.ResourceNotFoundException;
 import com.example.HMS_UI.repo.UserRepo;
 import com.example.HMS_UI.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,4 +70,29 @@ public class UserService{
                     return doctorDashboardDTO;
                 }).toList();
     }
+    public DoctorDetail getDoctorDetail(int id){
+        User doctorUser1 = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cannot find the user detail"));
+        List<User> singleDoctorUserList= new ArrayList<>();
+        singleDoctorUserList.add(doctorUser1);
+       return singleDoctorUserList
+                .stream()
+                .filter(user -> {return user.getRole()==USER_ROLE.DOCTOR;})
+                .filter(user-> {return user.getDoctor()!=null;})
+                .filter(user -> {return user.getDoctor().getDepartment()!=null;})
+                .filter(user -> {return user.getDoctor().getSpecialization()!=null;})
+                .map(doctorUser->{
+                    DoctorDetail doctorDetail= new DoctorDetail();
+                    doctorDetail.setDoctorId(doctorUser.getDoctor().getId());
+                    doctorDetail.setUserId(doctorUser.getId());
+                    doctorDetail.setRole(doctorUser.getRole().name());
+                    doctorDetail.setDescription("Doctor in Harmony Hospital");
+                    doctorDetail.setName(doctorUser.getName());
+                    doctorDetail.setEmail(doctorUser.getEmail());
+                    doctorDetail.setDepartmentId(doctorUser.getDoctor().getDepartment().getId());
+                    doctorDetail.setDepartmentName(doctorUser.getDoctor().getDepartment().getName());
+                    doctorDetail.setSpecialization(doctorUser.getDoctor().getSpecialization());
+                    return doctorDetail;
+                }).toList().get(0);
+                }
 }

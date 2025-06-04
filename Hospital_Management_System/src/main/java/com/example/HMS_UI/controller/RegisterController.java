@@ -146,5 +146,9 @@ public class RegisterController {
         return "redirect:/admin/dashboard#doctor";
     }
 
+    @GetMapping("/admin/doctors/view/{doctorId}")
+    public String viewDoctor(@PathVariable int doctorId, Model model) {
+        model.addAttribute("doctor", userService.getDoctorDetail(doctorId));
+        return "doctorDetail";
     }
 }
