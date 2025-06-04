@@ -55,6 +55,8 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String adminDashboard(Model model){
         model.addAttribute("appointmentCount",appointmentService.appointmentCount());
+        model.addAttribute("doctorCount",userService.doctorCount(USER_ROLE.DOCTOR));
+        model.addAttribute("patientCount",userService.patientCount(USER_ROLE.PATIENT));
         return "admin_dashboard";
     }
 

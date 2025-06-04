@@ -1,6 +1,7 @@
 package com.example.HMS_UI.service;
 
 
+import com.example.HMS_UI.constant.USER_ROLE;
 import com.example.HMS_UI.repo.UserRepo;
 import com.example.HMS_UI.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,7 @@ public class UserService{
     public Optional<User> findByUserName(String userName){ return userRepo.findByName(userName);}
 
     public Optional<User> findByEmail(String email) { return userRepo.findByEmail(email); }
+    public int doctorCount(USER_ROLE role){return userRepo.findByRole(USER_ROLE.DOCTOR).size();}
+    public int patientCount(USER_ROLE role){return userRepo.findByRole(USER_ROLE.PATIENT).size();}
+
 }
