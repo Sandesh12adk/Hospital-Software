@@ -70,9 +70,14 @@ public class UserService{
                     return doctorDashboardDTO;
                 }).toList();
     }
-    public DoctorDetail getDoctorDetail(int id){
-        User doctorUser1 = userRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cannot find the user detail"));
+    public DoctorDetail getDoctorDetail(int doctorId){
+        System.out.println(doctorId);
+        User doctorUser1 = userRepo.findAll()
+                .stream()
+                .filter(user -> {return user.getDoctor()!=null;})
+                .filter(user -> {return user.getDoctor().getId()==doctorId;})
+                .toList().get(0);
+
         List<User> singleDoctorUserList= new ArrayList<>();
         singleDoctorUserList.add(doctorUser1);
        return singleDoctorUserList
