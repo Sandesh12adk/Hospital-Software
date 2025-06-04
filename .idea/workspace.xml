@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="appoint count">
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="doctor and patient cound">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/UserRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749015765475</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="doctor and patient cound">
+      <option name="closed" value="true" />
+      <created>1749016252806</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1749016252806</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,7 +114,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="appoint count" />
-    <option name="LAST_COMMIT_MESSAGE" value="appoint count" />
+    <MESSAGE value="doctor and patient cound" />
+    <option name="LAST_COMMIT_MESSAGE" value="doctor and patient cound" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

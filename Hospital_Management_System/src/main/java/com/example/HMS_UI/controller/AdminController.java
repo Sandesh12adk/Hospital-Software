@@ -4,6 +4,7 @@ import com.example.HMS_UI.constant.USER_ROLE;
 import com.example.HMS_UI.dto.AdminSaveDTO;
 import com.example.HMS_UI.model.User;
 import com.example.HMS_UI.service.AppointmentService;
+import com.example.HMS_UI.service.DepartmentService;
 import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,6 +27,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private DepartmentService departmentService;
     //Admin only
     @Operation(
             summary = "Register new admin",
@@ -57,6 +60,8 @@ public class AdminController {
         model.addAttribute("appointmentCount",appointmentService.appointmentCount());
         model.addAttribute("doctorCount",userService.doctorCount(USER_ROLE.DOCTOR));
         model.addAttribute("patientCount",userService.patientCount(USER_ROLE.PATIENT));
+        model.addAttribute("departmentCount",departmentService.departmentCount());
+        model.addAttribute("departments",departmentService.departmentDashboardDTO());
         return "admin_dashboard";
     }
 
