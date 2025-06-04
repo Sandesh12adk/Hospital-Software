@@ -3,6 +3,7 @@ package com.example.HMS_UI.controller;
 import com.example.HMS_UI.constant.USER_ROLE;
 import com.example.HMS_UI.dto.AdminSaveDTO;
 import com.example.HMS_UI.model.User;
+import com.example.HMS_UI.service.AppointmentService;
 import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppointmentService appointmentService;
     //Admin only
     @Operation(
             summary = "Register new admin",
@@ -49,7 +53,8 @@ public class AdminController {
         return ResponseEntity.ok("Saved");
     }
     @GetMapping("/dashboard")
-    public String adminDashboard(){
+    public String adminDashboard(Model model){
+        model.addAttribute("appointmentCount",appointmentService.appointmentCount());
         return "admin_dashboard";
     }
 

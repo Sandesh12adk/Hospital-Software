@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

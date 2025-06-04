@@ -66,4 +66,7 @@ public class AppointmentService {
             }
         }
     }
+    public int appointmentCount(){
+        return appointmentRepo.findAll().size();
+    }
 }
