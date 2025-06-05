@@ -23,7 +23,13 @@ public class DepartmentService {
     public Optional<Department> findById(int id) {
         return departmentRepo.findById(id);
     }
+    public List<Department> getAllDepartments() {
+        return departmentRepo.findAllByOrderByNameAsc();
+    }
 
+    public Department getDepartmentById(int id) {
+        return departmentRepo.findById(id).orElse(null);
+    }
     public int noOfDoctors(Department department){
         return department.getDoctors()!=null ? department.getDoctors().size(): 0;
     }

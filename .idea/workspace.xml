@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="last commit">
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/constant/APPOINTMENT_STATUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/constant/APPOINTMENT_STATUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DepartmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DepartmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DoctorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DoctorRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/PatientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/PatientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +27,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -67,11 +74,11 @@
       <recent name="com.example.Hospital_Management_System.repo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates\fragments" />
+      <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates" />
+      <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates\patient" />
+      <recent name="D:\HMS_UI\Hospital_Management_System\src\main\java\com\example\HMS_UI\mapper" />
       <recent name="D:\HMS_UI\Hospital_Management_System" />
-      <recent name="D:\Desktop\HMS_UI\Hospital_Management_System\src\main\resources\templates" />
-      <recent name="D:\Desktop\project\Hospital_Management_System" />
-      <recent name="D:\Desktop\project\Hospital_Management_System\Hospital_Management_System" />
-      <recent name="D:\Desktop\project\Hospital_Management_System\Hospital_Management_System\src\main\resources\db\migration\migration" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -115,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749034856965</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Doctor detail">
+      <option name="closed" value="true" />
+      <created>1749036153151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749036153151</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,7 +149,8 @@
     <MESSAGE value="doctor and patient cound" />
     <MESSAGE value="admin basic completed" />
     <MESSAGE value="last commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="last commit" />
+    <MESSAGE value="Doctor detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doctor detail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

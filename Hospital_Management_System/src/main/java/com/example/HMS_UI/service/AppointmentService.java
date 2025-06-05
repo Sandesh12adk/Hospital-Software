@@ -4,7 +4,9 @@ import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import com.example.HMS_UI.dto.DashboardAppointmentDTO;
 import com.example.HMS_UI.exception.ResourceNotFoundException;
 import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.model.Patient;
 import com.example.HMS_UI.repo.AppointmentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class AppointmentService {
     private final AppointmentRepo appointmentRepo;
     @Autowired
@@ -94,5 +97,24 @@ public class AppointmentService {
                     return dashboardAppointmentDTO;
                 }).toList();
 
+    }
+    public List<Appointment> getUpcomingAppointments(int patientId) {
+        return appointmentRepo.findUpcomingAppointments(patientId, LocalDate.now());
+    }
+
+    public List<Appointment> getPastAppointments(int patientId) {
+        return appointmentRepo.findPastAppointments(patientId, LocalDate.now());
+    }
+
+    public Optional<Appointment> getAppointmentById(int id) {
+        return appointmentRepo.findById(id);
+    }
+
+    public void cancelAppointment(int id, String reason) {
+        appointmentRepo.findById(id).ifPresent(appointment -> {
+            appointment.setStatus(APPOINTMENT_STATUS.CANCELLED);
+            appointment.setReason(reason);
+            appointmentRepo.save(appointment);
+        });
     }
 }
