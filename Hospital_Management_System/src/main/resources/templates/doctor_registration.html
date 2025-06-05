@@ -91,16 +91,6 @@
             </div>
 
             <div class="mb-4">
-                <label for="departmentId" class="form-label">Department</label>
-                <select class="form-select" id="departmentId" th:field="*{departmentId}" required>
-                    <option value="" disabled selected>Select your department</option>
-                    <option th:each="dept : ${departments}"
-                            th:value="${dept.id}"
-                            th:text="${dept.name}"></option>
-                </select>
-                <div th:if="${#fields.hasErrors('departmentId')}" th:errors="*{departmentId}" class="text-danger"></div>
-            </div>
-
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg">
                     <i class="fas fa-user-plus me-2"></i> Register

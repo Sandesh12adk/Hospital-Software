@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -116,5 +117,18 @@ public class AppointmentService {
             appointment.setReason(reason);
             appointmentRepo.save(appointment);
         });
+    }
+    public List<Appointment> getAppointmentsByPatientWithFilters(int patientId,
+                                                                 String status,
+                                                                 LocalDate fromDate,
+                                                                 LocalDate toDate) {
+        String statusFilter = StringUtils.hasText(status) ? status : null;
+        APPOINTMENT_STATUS appointmentStatus= APPOINTMENT_STATUS.valueOf(statusFilter.trim().toUpperCase());
+        return appointmentRepo.findFilteredAppointments(
+                patientId,
+                appointmentStatus,
+                fromDate,
+                toDate
+        );
     }
 }

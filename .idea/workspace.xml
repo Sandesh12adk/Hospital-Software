@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="">
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="lsit of appointment for a patient">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/constant/APPOINTMENT_STATUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/constant/APPOINTMENT_STATUS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DepartmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DepartmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DoctorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/DoctorRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/PatientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/PatientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/DepartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/doctor_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/doctor_registration.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -130,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749036153151</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="lsit of appointment for a patient">
+      <option name="closed" value="true" />
+      <created>1749103061368</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749103061368</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,7 +154,8 @@
     <MESSAGE value="admin basic completed" />
     <MESSAGE value="last commit" />
     <MESSAGE value="Doctor detail" />
-    <option name="LAST_COMMIT_MESSAGE" value="Doctor detail" />
+    <MESSAGE value="lsit of appointment for a patient" />
+    <option name="LAST_COMMIT_MESSAGE" value="lsit of appointment for a patient" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

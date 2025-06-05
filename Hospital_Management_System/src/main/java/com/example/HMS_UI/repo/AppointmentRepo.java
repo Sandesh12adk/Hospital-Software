@@ -37,4 +37,13 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Integer>, Pa
             "ORDER BY a.date DESC, a.time DESC")
     List<Appointment> findPastAppointments(@Param("patientId") int patientId,
                                            @Param("currentDate") LocalDate currentDate);
+    @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId " +
+            "AND (:status IS NULL OR a.status = :status) " +
+            "AND (:fromDate IS NULL OR a.date >= :fromDate) " +
+            "AND (:toDate IS NULL OR a.date <= :toDate)")
+    List<Appointment> findFilteredAppointments(@Param("patientId") int patientId,
+                                               @Param("status") APPOINTMENT_STATUS status,
+                                               @Param("fromDate") LocalDate fromDate,
+                                               @Param("toDate") LocalDate toDate);
+
 }
