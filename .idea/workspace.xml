@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Updated Docker file">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-    </list>
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="try1" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -179,7 +177,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749228307683</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="docker file">
+      <option name="closed" value="true" />
+      <created>1749228460096</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749228460096</updated>
+    </task>
+    <task id="LOCAL-00014" summary="try1">
+      <option name="closed" value="true" />
+      <created>1749228629946</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749228629946</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,7 +220,9 @@
     <MESSAGE value="Displaying Appointments for a doctor" />
     <MESSAGE value="Completed overall functionality" />
     <MESSAGE value="Updated Docker file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Docker file" />
+    <MESSAGE value="docker file" />
+    <MESSAGE value="try1" />
+    <option name="LAST_COMMIT_MESSAGE" value="try1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
