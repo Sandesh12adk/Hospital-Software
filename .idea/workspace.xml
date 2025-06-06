@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Completed overall functionality" />
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Updated Docker file">
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,11 +67,11 @@
       <recent name="com.example.Hospital_Management_System.repo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\HMS_UI" />
       <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates\fragments" />
       <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates" />
       <recent name="D:\HMS_UI\Hospital_Management_System\src\main\resources\templates\patient" />
       <recent name="D:\HMS_UI\Hospital_Management_System\src\main\java\com\example\HMS_UI\mapper" />
-      <recent name="D:\HMS_UI\Hospital_Management_System" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -169,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749227885881</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated Docker file">
+      <option name="closed" value="true" />
+      <created>1749228307683</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749228307683</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +205,8 @@
     <MESSAGE value="Displaying contact messages" />
     <MESSAGE value="Displaying Appointments for a doctor" />
     <MESSAGE value="Completed overall functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed overall functionality" />
+    <MESSAGE value="Updated Docker file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Docker file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
