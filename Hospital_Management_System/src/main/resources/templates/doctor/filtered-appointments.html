@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Appointments</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+
+        .filter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-form label {
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        .filter-form select,
+        .filter-form input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .filter-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .filter-form button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table thead {
+            background-color: #343a40;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .action-buttons form {
+            display: inline-block;
+            margin: 0 3px;
+        }
+
+        .action-buttons button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-buttons button.cancel {
+            background-color: #dc3545;
+        }
+
+        .action-buttons button:hover {
+            opacity: 0.9;
+        }
+          .breadcrumb-banner {
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: white;
+    padding: 3rem 0;
+    text-align: left;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.breadcrumb-banner .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.breadcrumb-nav a {
+    color: #f5f5f5;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #fff;
+}
+
+.breadcrumb-separator {
+    color: #ddd;
+    font-size: 1.2rem;
+}
+
+.breadcrumb-current {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+ .top-bar {
+            background: linear-gradient(135deg, var(--primary), #1a5f8b);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5%;
+            flex-wrap: wrap;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+         .contact-info span {
+            margin-right: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+       .breadcrumb-banner-section {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    padding: 4rem 0 3rem;
+    color: #fff;
+    text-align: center;
+    border-radius: 0 0 2rem 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-nav {
+    font-size: 1.1rem;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.breadcrumb-nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.
+
+    </style>
+</head>
+<body>
+<section class="breadcrumb-banner-section">
+    <div class="container">
+        <h1 class="breadcrumb-title">Appointment</h1>
+        <nav class="breadcrumb-nav">
+            <a th:href="@{/user/doctor/dashboard}"><i class="fas fa-home"></i> Dashboard</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Appointment</span>
+        </nav>
+    </div>
+</section>
+<h2>Doctor's Appointments</h2>
+
+<form class="filter-form" method="get" th:action="@{/doctor/appointments}">
+    <div>
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <option th:selected="${statusParam == null}" value="">All</option>
+            <option th:each="status : ${T(com.example.HMS_UI.constant.APPOINTMENT_STATUS).values()}"
+                    th:value="${status}"
+                    th:text="${status}"
+                    th:selected="${status} == ${statusParam}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label for="fromDate">From:</label>
+        <input type="date" name="fromDate" id="fromDate" th:value="${fromDateParam}">
+    </div>
+
+    <div>
+        <label for="toDate">To:</label>
+        <input type="date" name="toDate" id="toDate" th:value="${toDateParam}">
+    </div>
+
+    <div>
+        <button type="submit">Filter</button>
+    </div>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Patient ID</th>
+        <th>Patient Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment : ${appointments}">
+        <td th:text="${appointment.appointmentId}"></td>
+        <td th:text="${appointment.patientId}"></td>
+        <td th:text="${appointment.patientName}"></td>
+        <td th:text="${appointment.localDate}"></td>
+        <td th:text="${appointment.localTime}"></td>
+        <td th:text="${appointment.reason}"></td>
+        <td th:text="${appointment.appointmentStatus}"></td>
+        <td class="action-buttons">
+            <form th:action="@{'/doctor/appointments/' + ${appointment.appointmentId} + '/schelduded'}" method="post">
+                <button type="submit">Schedule</button>
+            </form>
+            <form th:action="@{'/doctor/appointments/' + ${appointment.appointmentId} + '/cancel'}" method="post">
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

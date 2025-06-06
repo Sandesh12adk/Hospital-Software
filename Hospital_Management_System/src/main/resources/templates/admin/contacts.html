@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages | Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #e6f0ff;
+            --success: #4cc9a0;
+            --warning: #f8961e;
+            --danger: #f94144;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fb;
+            color: var(--dark);
+        }
+
+        .admin-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .contact-header {
+            background: var(--primary-light);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-subject {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-meta {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .contact-meta i {
+            width: 18px;
+            text-align: center;
+            margin-right: 5px;
+            color: var(--primary);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-PENDING {
+            background-color: #fff3e6;
+            color: #e67e22;
+        }
+
+        .status-REVIEWED {
+            background-color: #e6f7f0;
+            color: #27ae60;
+        }
+
+        .status-ARCHIVED {
+            background-color: #f0f1f2;
+            color: #7f8c8d;
+        }
+
+        .message-content {
+            padding: 1.5rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .message-text {
+            white-space: pre-wrap;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .contact-details {
+            background: #f9fafc;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .detail-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .action-btn {
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
+        }
+
+        .empty-state {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box .form-control {
+            padding-left: 40px;
+            border-radius: 8px;
+            border: 1px solid #e0e6ed;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            color: var(--gray);
+        }
+
+        .dropdown-toggle {
+            border-radius: 8px;
+            border: 1px solid #e0e6ed;
+        }
+
+        .pagination .page-link {
+            border-radius: 8px !important;
+            margin: 0 3px;
+            border: none;
+            color: var(--dark);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+<!-- Admin Header -->
+<header class="admin-header mb-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="h4 fw-bold mb-0">
+                <i class="bi bi-envelope-paper me-2 text-primary"></i> Contact Messages
+            </h1>
+            <div class="d-flex align-items-center">
+                <div class="dropdown me-2">
+                 <!--   <button class="btn btn-light dropdown-toggle" type="button"
+                            id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-funnel me-1"></i>
+                        <span th:text="${statusFilter != null} ? ${statusFilter} : 'All Status'">All Status</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
+                        <li><a class="dropdown-item" th:href="@{/admin/contacts}">All Messages</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/contacts(status='PENDING')}">
+                            <span class="status-badge status-PENDING me-2">OPEN</span> OPEN
+                        </a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/contacts(status='REVIEWED')}">
+                            <span class="status-badge status-REVIEWED me-2">CLOSED</span> CLOSED
+                        </a></li>
+                    </ul>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <form th:action="@{/admin/contacts}" method="get" class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" class="form-control" name="search" placeholder="Search messages by subject, content or sender..."
+                       th:value="${searchQuery}">
+                <input type="hidden" name="status" th:value="${statusFilter}">
+            </form>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div th:if="${contacts.empty}" class="empty-state">
+        <div class="empty-icon">
+            <i class="bi bi-envelope-x"></i>
+        </div>
+        <h4 class="mb-3">No Contact Messages Found</h4>
+        <p class="text-muted mb-4">There are currently no messages matching your criteria.</p>
+        <a th:href="@{/admin/contacts}" class="btn btn-primary">
+            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
+        </a>
+    </div>
+
+    <!-- Contact Messages List -->
+    <div th:each="contact : ${contacts}" class="contact-card">
+        <div class="contact-header d-flex justify-content-between align-items-center">
+            <div>
+                <div class="contact-subject" th:text="${contact.subject}">Message Subject</div>
+                <div class="contact-meta">
+                        <span><i class="bi bi-clock"></i>
+                            <span th:text="${#temporals.format(contact.contactDate, 'MMM d, yyyy h:mm a')}">
+                                Jun 15, 2023 2:30 PM
+                            </span>
+                        </span>
+                    <span class="ms-3"><i class="bi bi-person"></i>
+                            <span th:text="${contact.name}">John Doe</span>
+                            <span th:if="${contact.userId != null}">
+                                (@<span th:text="${contact.username}">johndoe</span>)
+                            </span>
+                        </span>
+                </div>
+            </div>
+            <div>
+                    <span th:classappend="'status-badge status-' + ${contact.status}"
+                          th:text="${contact.status}">
+                        PENDING
+                    </span>
+            </div>
+        </div>
+
+        <div class="message-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="mb-4">
+                        <h6 class="text-uppercase text-muted mb-3">Message</h6>
+                        <div class="message-text" th:text="${contact.message}">
+                            The actual message content will appear here with proper formatting and line breaks preserved.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-details">
+                        <h6 class="text-uppercase text-muted mb-3">Contact Details</h6>
+
+                        <div class="detail-item">
+                            <div class="detail-label">Email Address</div>
+                            <div class="detail-value">
+                                <a th:href="'mailto:' + ${contact.email}" th:text="${contact.email}">
+                                    john.doe@example.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">Phone Number</div>
+                            <div class="detail-value" th:text="${contact.mobileno}">
+                                9801234567
+                            </div>
+                        </div>
+
+                        <div th:if="${contact.userId != null}" class="detail-item">
+                            <div class="detail-label">User ID</div>
+                            <div class="detail-value" th:text="${contact.userId}">
+                                12345
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value">
+                                    <span th:classappend="'status-badge status-' + ${contact.status}"
+                                          th:text="${contact.status}">
+                                        PENDING
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-footer bg-light p-3 border-top">
+            <div class="d-flex justify-content-end">
+                <div class="btn-group">
+                    <button th:if="${contact.status == 'PENDING'}"
+                            class="btn btn-success action-btn me-2"
+                            th:attr="data-id=${contact.contactId}"
+                            onclick="updateStatus(this, 'REVIEWED')">
+                        <i class="bi bi-check-circle me-1"></i> Mark as Reviewed
+                    </button>
+                    <div class="btn-group btn-group-sm">
+                        <a th:href="@{/admin/contacts/close/{id}(id=${contact.contactId})}"
+                           class="btn btn-outline-primary">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav th:if="${!contacts.empty}" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/contacts(status=${statusFilter}, search=${searchQuery}, page=1)}">
+                    <i class="bi bi-chevron-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/contacts(status=${statusFilter}, search=${searchQuery}, page=${currentPage - 1})}">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+            </li>
+
+            <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                class="page-item" th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/admin/contacts(status=${statusFilter}, search=${searchQuery}, page=${i})}"
+                   th:text="${i}">1</a>
+            </li>
+
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/contacts(status=${statusFilter}, search=${searchQuery}, page=${currentPage + 1})}">
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/contacts(status=${statusFilter}, search=${searchQuery}, page=${totalPages})}">
+                    <i class="bi bi-chevron-double-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Scripts -->
+<script>
+    function updateStatus(button, newStatus) {
+        const contactId = button.getAttribute('data-id');
+        const buttonText = button.innerHTML;
+
+        // Show loading state
+        button.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Processing...';
+        button.disabled = true;
+
+        fetch(`/admin/contacts/${contactId}/status?newStatus=${newStatus}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show success feedback before reload
+                button.innerHTML = '<i class="bi bi-check-circle me-1"></i> Done!';
+                button.classList.remove('btn-success', 'btn-outline-secondary');
+                button.classList.add('btn-light');
+                setTimeout(() => window.location.reload(), 800);
+            } else {
+                button.innerHTML = buttonText;
+                button.disabled = false;
+                alert('Failed to update status');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            button.innerHTML = buttonText;
+            button.disabled = false;
+            alert('An error occurred while updating status');
+        });
+    }
+
+    function deleteContact(button) {
+        const contactId = button.getAttribute('data-id');
+
+        if (confirm('Are you sure you want to delete this contact message? This action cannot be undone.')) {
+            // Show loading state
+            const buttonText = button.innerHTML;
+            button.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Deleting...';
+            button.disabled = true;
+
+            fetch(`/admin/contacts/${contactId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success feedback before reload
+                    button.innerHTML = '<i class="bi bi-check-circle me-1"></i> Deleted!';
+                    button.classList.remove('btn-outline-danger');
+                    button.classList.add('btn-light');
+                    setTimeout(() => window.location.reload(), 800);
+                } else {
+                    button.innerHTML = buttonText;
+                    button.disabled = false;
+                    alert('Failed to delete contact');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                button.innerHTML = buttonText;
+                button.disabled = false;
+                alert('An error occurred while deleting');
+            });
+        }
+    }
+</script>
+</body>
+</html>

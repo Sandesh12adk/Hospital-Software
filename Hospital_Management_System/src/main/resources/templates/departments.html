@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments | Harmony Health</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --primary-light: #e1f0fa;
+            --secondary: #ff7e33;
+            --light-gray: #f8f9fa;
+        }
+        .department-card {
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .department-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .doctors-badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .description-text {
+            color: #495057;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<!-- Include your navigation/header here -->
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="h2 fw-bold">
+            <i class="bi bi-building me-2"></i> Our Departments
+        </h1>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search departments..."
+                       th:value="${searchQuery}">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <select class="form-select">
+                <option selected>Sort by</option>
+                <option>Name (A-Z)</option>
+                <option>Name (Z-A)</option>
+                <option>Most Doctors</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div th:if="${departments.empty}" class="text-center py-5 bg-light rounded-3">
+        <i class="bi bi-building-x text-muted mb-3" style="font-size: 3rem;"></i>
+        <h4 class="text-muted">No Departments Found</h4>
+        <p class="text-muted">There are currently no departments in the system.</p>
+        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
+            <i class="bi bi-plus-lg me-1"></i> Add First Department
+        </button>
+    </div>
+
+    <!-- Departments Grid -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div th:each="department : ${departments}" class="col">
+            <div class="card h-100 department-card">
+                <div class="card-body text-center">
+                    <div th:switch="${department.name}" class="department-icon">
+                        <i th:case="'Cardiology'" class="bi bi-heart-pulse"></i>
+                        <i th:case="'Neurology'" class="bi bi-brain"></i>
+                        <i th:case="'Pediatrics'" class="bi bi-emoji-smile"></i>
+                        <i th:case="'Orthopedics'" class="bi bi-bone"></i>
+                        <i th:case="'Dermatology'" class="bi bi-droplet"></i>
+                        <i th:case="*" class="bi bi-building"></i>
+                    </div>
+                    <h3 class="h4 card-title" th:text="${department.name}">Department Name</h3>
+                    <div class="mb-3">
+                            <span class="badge doctors-badge">
+                                <i class="bi bi-people-fill me-1"></i>
+                                <span th:text="${department.noOfDoctors} + ' Doctors'">5 Doctors</span>
+                            </span>
+                    </div>
+                    <p class="card-text description-text" th:text="${department.description}">
+                        Department description goes here with details about services offered.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="mt-4" th:if="${not departments.empty}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

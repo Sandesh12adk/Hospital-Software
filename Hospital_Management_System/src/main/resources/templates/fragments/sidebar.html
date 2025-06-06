@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Fragment</title>
+</head>
+<body>
+<!-- Sidebar Fragment -->
+<aside th:fragment="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <div class="user-avatar" th:text="${#strings.substring(user.name, 0, 1)}">P</div>
+        <div class="user-info">
+            <h4 th:text="${user.name}">Patient Name</h4>
+            <p th:text="'Patient ID: ' + ${patient.id}">Patient ID: 54321</p>
+        </div>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li>
+            <a th:href="@{/patient/dashboard}" th:classappend="${#request.getRequestURI().contains('dashboard')} ? 'active' : ''">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}" th:classappend="${#request.getRequestURI().contains('medical-history')} ? 'active' : ''">
+                <i class="fas fa-file-medical"></i>
+                <span>Medical Historyy</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/patient/appointments}" th:classappend="${#request.getRequestURI().contains('appointments')} ? 'active' : ''">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/patient/prescriptions}" th:classappend="${#request.getRequestURI().contains('prescriptions')} ? 'active' : ''">
+                <i class="fas fa-prescription-bottle-alt"></i>
+                <span>Prescriptions</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/patient/test-results}" th:classappend="${#request.getRequestURI().contains('test-results')} ? 'active' : ''">
+                <i class="fas fa-vial"></i>
+                <span>Test Results</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/departments}" th:classappend="${#request.getRequestURI().contains('departments')} ? 'active' : ''">
+                <i class="fas fa-clinic-medical"></i>
+                <span>Departments</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/doctors}" th:classappend="${#request.getRequestURI().contains('doctors')} ? 'active' : ''">
+                <i class="fas fa-user-md"></i>
+                <span>Doctors</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/contact}" th:classappend="${#request.getRequestURI().contains('contact')} ? 'active' : ''">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="logout-btn">
+        <a href="/logout" class="btn btn-outline" style="display: block; text-align: center;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</aside>
+</body>
+</html>

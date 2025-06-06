@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Details | Harmony Health</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --primary-light: #e1f0fa;
+            --secondary: #ff7e33;
+            --accent: #4caf50;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+        }
+
+        .detail-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+        }
+
+        .doctor-avatar-lg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 36px;
+            margin: 0 auto 20px;
+        }
+
+        .status-badge-lg {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside th:replace="fragments/sidebar :: sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/patient/dashboard}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/patient/appointments}">Appointments</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Appointment Details</li>
+            </ol>
+        </nav>
+
+        <!-- Appointment Details Card -->
+        <div class="card detail-card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-calendar-alt me-2"></i> Appointment Details
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <div class="doctor-avatar-lg"
+                         th:text="${#strings.substring(appointment.doctorName, 0, 1)}">D</div>
+                    <h3 th:text="${appointment.doctorName}">Dr. Sharma</h3>
+                    <span th:classappend="${appointment.status == 'SCHEDULED'} ? 'status-scheduled' :
+                                          ${appointment.status == 'PENDING'} ? 'status-pending' :
+                                          ${appointment.status == 'CANCELLED'} ? 'status-cancelled' : 'status-completed'"
+                          class="status-badge-lg"
+                          th:text="${appointment.status}">SCHEDULED</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="detail-item">
+                            <h5><i class="fas fa-clinic-medical text-primary me-2"></i> Department</h5>
+                            <p th:text="${appointment.departmentName}">Cardiology</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <h5><i class="fas fa-calendar-day text-primary me-2"></i> Date & Time</h5>
+                            <p th:text="${#temporals.format(appointment.appointmentDate, 'EEEE, MMMM dd, yyyy')} + ' at ' + ${appointment.appointmentTime}">
+                                Monday, June 15, 2023 at 10:00 AM
+                            </p>
+                        </div>
+
+                        <div class="detail-item">
+                            <h5><i class="fas fa-sticky-note text-primary me-2"></i> Reason</h5>
+                            <p th:text="${appointment.reason}">Regular Checkup</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="detail-item">
+                            <h5><i class="fas fa-info-circle text-primary me-2"></i> Appointment ID</h5>
+                            <p th:text="${appointment.id}">APT-12345</p>
+                        </div>
+
+                        <div th:if="${appointment.status == 'CANCELLED'}" class="detail-item">
+                            <h5><i class="fas fa-times-circle text-primary me-2"></i> Cancellation Reason</h5>
+                            <p th:text="${appointment.cancellationReason ?: 'Not specified'}">Patient request</p>
+                        </div>
+
+                        <div th:if="${appointment.status == 'COMPLETED'}" class="detail-item">
+                            <h5><i class="fas fa-file-medical text-primary me-2"></i> Medical Record</h5>
+                            <a th:href="@{'/patient/medical-records/' + ${appointment.id}}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i> View Medical Record
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <a th:href="@{/patient/appointments}" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-arrow-left me-1"></i> Back to Appointments
+                    </a>
+                    <button th:if="${appointment.status == 'SCHEDULED' or appointment.status == 'PENDING'}"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#cancelModal">
+                        <i class="fas fa-times me-1"></i> Cancel Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Cancel Appointment Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel this appointment?</p>
+                <form th:action="@{'/patient/appointments/' + ${appointment.id} + '/cancel'}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="mb-3">
+                        <label for="cancelReason" class="form-label">Reason for Cancellation</label>
+                        <textarea class="form-control" id="cancelReason" name="reason" rows="3" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

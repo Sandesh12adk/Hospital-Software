@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Harmony Health | Hospital Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background-color: #004d99;
+            color: #fff;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            font-size: 0.9rem;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin-right: 10px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #00bcd4;
+        }
+
+        .contact-info span {
+            margin-left: 15px;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #003366;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #00bcd4;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav li {
+            margin-left: 25px;
+        }
+
+        .main-nav a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: #00bcd4;
+        }
+
+        .nav-btn {
+            background-color: #00bcd4;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 5%;
+            background: linear-gradient(to right, #e0f7fa, #fff);
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0097a7;
+        }
+
+        .btn-secondary {
+            background-color: #fff;
+            color: #00bcd4;
+            border: 2px solid #00bcd4;
+        }
+
+        .btn-secondary:hover {
+            background-color: #00bcd4;
+            color: #fff;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .services {
+            padding: 80px 5%;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 50px;
+        }
+
+        .service-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .service-box {
+            background-color: #fff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .service-box i {
+            font-size: 2.5rem;
+            color: #00bcd4;
+            margin-bottom: 15px;
+        }
+
+        .service-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #003366;
+        }
+
+        .service-box p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        section[id] {
+            padding: 80px 5%;
+        }
+
+        section[id]:nth-of-type(even) {
+            background-color: #f0f9ff;
+        }
+
+        section[id]:nth-of-type(odd) {
+            background-color: #ffffff;
+        }
+
+        section[id] h2 {
+            font-size: 2rem;
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        section[id] p {
+            font-size: 1rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="top-bar">
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="contact-info">
+            <span><i class="fas fa-phone-alt"></i> +977-9841-234567</span>
+            <span><i class="fas fa-envelope"></i> care@harmonyhealth.com</span>
+            <span><i class="fas fa-map-marker-alt"></i> 456 स्वास्थ्य मार्ग, काठमाडौं, नेपाल</span>
+        </div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="logo"><strong>हार्मोनी</strong><span>स्वास्थ्य</span></div>
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a href="#our-services">About</a></li>
+            <li><a th:href="@{/doctors}">Doctors</a></li>
+            <li><a th:href="@{/department}">Departments</a></li>
+            <!-- Changed the Services link to intra-page anchor -->
+            <li><a href="#our-services">Services</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+            <li><a class="nav-btn" th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Compassionate Healthcare For Your Whole Family</h1>
+        <p>At Harmony Health, we combine cutting-edge medical technology with a warm, personalized approach to care. Our team of dedicated professionals is here to support your health journey every step of the way.</p>
+        <div style="display: flex; justify-content: start; flex-wrap: wrap;">
+            <a class="btn" th:href="@{/appointments/book}">Book Appointment</a>
+            <a class="btn btn-secondary" th:href="@{/services}">Our Services</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img th:src="@{/images/doctors.png}" alt="Friendly medical team"
+             style="max-height: 350px; max-width: 300px; width: 100%;">
+    </div>
+</section>
+
+<!-- Added id="our-services" here for intra-page anchor -->
+<section class="services" id="our-services">
+    <h2 class="section-title">Our Healthcare Services</h2>
+    <p class="section-subtitle">Comprehensive medical services designed to meet your family's healthcare needs with excellence and compassion.</p>
+
+    <div class="service-boxes">
+        <a href="#emergency" class="service-box">
+            <i class="fas fa-ambulance"></i>
+            <h3>Emergency Care</h3>
+            <p>24/7 emergency services with rapid response times and expert trauma care.</p>
+        </a>
+        <a href="#pediatrics" class="service-box">
+            <i class="fas fa-baby"></i>
+            <h3>Pediatrics</h3>
+            <p>Specialized care for infants, children, and adolescents in a child-friendly environment.</p>
+        </a>
+        <a href="#primary" class="service-box">
+            <i class="fas fa-user-md"></i>
+            <h3>Primary Care</h3>
+            <p>Comprehensive health services for all ages focusing on prevention and wellness.</p>
+        </a>
+        <a href="#neurology" class="service-box">
+            <i class="fas fa-brain"></i>
+            <h3>Neurology</h3>
+            <p>Advanced diagnosis and treatment for disorders of the nervous system.</p>
+        </a>
+        <a href="#cardiology" class="service-box">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Cardiology</h3>
+            <p>State-of-the-art cardiac care from prevention to complex interventions.</p>
+        </a>
+        <a href="#diagnostics" class="service-box">
+            <i class="fas fa-x-ray"></i>
+            <h3>Diagnostics</h3>
+            <p>Advanced imaging and laboratory services for accurate diagnosis.</p>
+        </a>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment | Harmony Health</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --primary-light: #e1f0fa;
+            --secondary: #ff7e33;
+            --accent: #4caf50;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+        }
+
+        .booking-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+        }
+
+        .doctor-option {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .doctor-option:last-child {
+            border-bottom: none;
+        }
+
+        .doctor-avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside th:replace="fragments/sidebar :: sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/patient/dashboard}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/patient/appointments}">Appointments</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Book Appointment</li>
+            </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card booking-card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-calendar-plus me-2"></i> Book New Appointment
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/patient/appointments/book}" th:object="${appointmentForm}" method="post">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="department" class="form-label">Department</label>
+                                    <select class="form-select" id="department" required
+                                            th:classappend="${#fields.hasErrors('departmentId')} ? 'is-invalid' : ''">
+                                        <option value="">Select Department</option>
+                                        <option th:each="dept : ${departments}"
+                                                th:value="${dept.id}"
+                                                th:text="${dept.name}"
+                                                th:selected="${appointmentForm != null && appointmentForm.departmentId == dept.id}">
+                                        </option>
+                                    </select>
+                                    <div th:if="${#fields.hasErrors('departmentId')}" class="invalid-feedback">
+                                        <span th:errors="*{departmentId}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="doctorId" class="form-label">Doctor</label>
+                                    <select class="form-select" id="doctorId" name="doctorId" required
+                                            th:classappend="${#fields.hasErrors('doctorId')} ? 'is-invalid' : ''">
+                                        <option value="">Select Doctor</option>
+                                        <option th:each="doctor : ${doctors}"
+                                                th:value="${doctor.id}"
+                                                th:text="${doctor.user.name} + ' - ' + ${doctor.specialization}"
+                                                th:selected="${appointmentForm != null && appointmentForm.doctorId == doctor.id}">
+                                        </option>
+                                    </select>
+                                    <div th:if="${#fields.hasErrors('doctorId')}" class="invalid-feedback">
+                                        <span th:errors="*{doctorId}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" name="date" required
+                                           th:field="*{date}"
+                                           th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''"
+                                           min="${T(java.time.LocalDate).now().toString()}">
+                                    <div th:if="${#fields.hasErrors('date')}" class="invalid-feedback">
+                                        <span th:errors="*{date}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="time" class="form-label">Time</label>
+                                    <input type="time" class="form-control" id="time" name="time" required
+                                           th:field="*{time}"
+                                           th:classappend="${#fields.hasErrors('time')} ? 'is-invalid' : ''">
+                                    <div th:if="${#fields.hasErrors('time')}" class="invalid-feedback">
+                                        <span th:errors="*{time}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="reason" class="form-label">Reason</label>
+                                    <textarea class="form-control" id="reason" name="reason" rows="3" required
+                                              th:field="*{reason}"
+                                              th:classappend="${#fields.hasErrors('reason')} ? 'is-invalid' : ''"></textarea>
+                                    <div th:if="${#fields.hasErrors('reason')}" class="invalid-feedback">
+                                        <span th:errors="*{reason}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-end">
+                                        <a th:href="@{/patient/appointments}" class="btn btn-outline-secondary me-2">
+                                            <i class="fas fa-times me-1"></i> Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-calendar-check me-1"></i> Book Appointment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const departmentSelect = document.getElementById('department');
+        const doctorSelect = document.getElementById('doctorId');
+
+        departmentSelect.addEventListener('change', function() {
+            const departmentId = this.value;
+            doctorSelect.innerHTML = '<option value="">Select Doctor</option>';
+
+            if (departmentId) {
+                fetch('/patient/appointments/doctors-by-department?departmentId=' + departmentId)
+                    .then(response => response.json())
+                    .then(doctors => {
+                        doctors.forEach(doctor => {
+                            const option = document.createElement('option');
+                            option.value = doctor.id;
+                            option.textContent = doctor.user.name + ' - ' + doctor.specialization;
+                            doctorSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+
+        // Initialize doctors if department is already selected
+        if (departmentSelect.value) {
+            departmentSelect.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
+</body>
+</html>

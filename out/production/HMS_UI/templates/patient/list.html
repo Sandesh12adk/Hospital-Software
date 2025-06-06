@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Patients</title>
+</head>
+<body>
+<section>
+    <h2 class="mb-4">Patients</h2>
+    <div class="mb-3">
+        <a href="/patient/register" class="btn btn-primary">Register New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.id}"></td>
+                <td th:text="${patient.user.name}"></td>
+                <td th:text="${patient.user.email}"></td>
+                <td th:text="${patient.gender}"></td>
+                <td th:text="${patient.age}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

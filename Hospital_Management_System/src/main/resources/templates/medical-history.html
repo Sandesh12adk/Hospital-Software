@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Records</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .medical-card {
+            border-left: 4px solid #4e73df;
+            transition: all 0.2s ease;
+            margin-bottom: 1.5rem;
+        }
+        .medical-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .diagnosis-tag {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            font-weight: 500;
+        }
+        .medicine-tag {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .record-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        .breadcrumb-banner {
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: white;
+    padding: 3rem 0;
+    text-align: left;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.breadcrumb-banner .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.breadcrumb-nav a {
+    color: #f5f5f5;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #fff;
+}
+
+.breadcrumb-separator {
+    color: #ddd;
+    font-size: 1.2rem;
+}
+
+.breadcrumb-current {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+ .top-bar {
+            background: linear-gradient(135deg, var(--primary), #1a5f8b);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5%;
+            flex-wrap: wrap;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+         .contact-info span {
+            margin-right: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .breadcrumb-banner-section {
+        background: linear-gradient(135deg, #4e54c8, #8f94fb);
+        padding: 1rem 0 1rem; /* Less vertical padding */
+        color: #fff;
+        text-align: center;
+        border-radius: 0 0 0.5rem 0.5rem; /* Smaller rounded corners */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .breadcrumb-title {
+        font-size: 1.1rem; /* Smaller font */
+        font-weight: 500;
+        margin-bottom: 0.25rem; /* Less space below */
+    }
+
+    .breadcrumb-nav {
+        font-size: 0.8rem; /* Smaller font */
+        font-weight: 400;
+        gap: 0.3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .breadcrumb-nav a {
+        color: #f0f0f0;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+    }
+
+    .breadcrumb-separator {
+        color: #bbb;
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb-current {
+        color: #d0d0d0;
+        font-weight: 500;
+    }
+    :root {
+            --primary: #2a7fba;
+            --secondary: #ff7e33;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary), #1a5f8b);
+            color: white;
+            padding: 8px 5%;
+            font-size: 14px;
+        }
+
+        .contact-info span {
+            margin-right: 15px;
+        }
+
+        .main-nav {
+            background: white;
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .main-nav a {
+            color: var(--dark);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary);
+        }
+
+        .main-nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover:after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar, .contact-info {
+                text-align: center;
+            }
+            .contact-info span {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: siteHeader(${patientId}, ${patientName})}"></div>
+<section class="breadcrumb-banner-section">
+    <div class="container">
+        <h1 class="breadcrumb-title">Medical History</h1>
+        <nav class="breadcrumb-nav">
+            <a th:href="@{/user/patient/dashboard}"><i class="fas fa-home"></i> Dashboard</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Medical History</span>
+        </nav>
+    </div>
+</section>
+
+
+
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4 fw-bold">
+            <i class="bi bi-clipboard2-pulse me-2"></i>Medical Records
+        </h2>
+    </div>
+
+    <!-- Empty State -->
+    <div th:if="${medicalRecords.empty}" class="text-center py-5 bg-light rounded-3">
+        <i class="bi bi-clipboard2-x text-muted mb-3" style="font-size: 3rem;"></i>
+        <h5 class="text-muted">No medical records found</h5>
+        <p class="text-muted">This patient doesn't have any medical records yet.</p>
+    </div>
+
+    <!-- Records List -->
+    <div class="row">
+        <div th:each="record : ${medicalRecords}" class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 medical-card">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <span class="badge diagnosis-tag mb-2" th:text="${record.diagnosis}"></span>
+                        <span class="record-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                <span th:text="${#temporals.format(record.recordCreatedOn, 'MMM d, yyyy')}"></span>
+                            </span>
+                    </div>
+                    <div class="d-flex align-items-center mt-2">
+                        <i class="bi bi-person-badge me-2 text-muted"></i>
+                        <small class="text-muted" th:text="${record.doctorName}"></small>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Medicine -->
+                    <div class="mb-3">
+                        <h6 class="card-subtitle text-muted mb-2">
+                            <i class="bi bi-capsule me-1"></i>Prescribed Medicine
+                        </h6>
+                        <div th:if="${record.medicineName != null && !record.medicineName.isEmpty()}">
+                            <span class="badge medicine-tag" th:text="${record.medicineName}"></span>
+                        </div>
+                        <div th:if="${record.medicineName == null || record.medicineName.isEmpty()}">
+                            <p class="text-muted mb-0 small">No medicine prescribed</p>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <h6 class="card-subtitle text-muted mb-2">
+                            <i class="bi bi-journal-text me-1"></i>Notes
+                        </h6>
+                        <div th:if="${record.note != null && !record.note.isEmpty()}">
+                            <p class="card-text" th:text="${record.note}"></p>
+                        </div>
+                        <div th:if="${record.note == null || record.note.isEmpty()}">
+                            <p class="text-muted mb-0 small">No additional notes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white py-2">
+                    <small class="text-muted">
+                        Appointment ID: <span th:text="${record.appointmentId}"></span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
