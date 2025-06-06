@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Appointment sectin of pateint dashboard">
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Patient dashboard completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/DepartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/controller/PatientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/MedicalRecordDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/MedicalRecordDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/MedicalRecordRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/MedicalRecordRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/MedicalRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/service/MedicalRecordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/patient_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/patient_dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +18,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -151,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749119708367</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Patient dashboard completed">
+      <option name="closed" value="true" />
+      <created>1749189135757</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749189135757</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,7 +170,8 @@
     <MESSAGE value="Doctor detail" />
     <MESSAGE value="lsit of appointment for a patient" />
     <MESSAGE value="Appointment sectin of pateint dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="Appointment sectin of pateint dashboard" />
+    <MESSAGE value="Patient dashboard completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Patient dashboard completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
