@@ -27,5 +27,5 @@ public class MedicalRecordSaveDTO {
 
     @Min(value = 1, message = "Please Specify the Appointment Id")
     @Schema(description = "ID of the appointment this record is linked to", example = "45")
-    private int appointmentId;
+    private Integer appointmentId;
 }

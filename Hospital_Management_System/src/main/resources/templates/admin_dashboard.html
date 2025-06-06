@@ -74,10 +74,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/contacts">
-                            <i class="bi bi-envelope me-2"></i>Messages
+                        <a class="nav-link d-flex align-items-center" href="/admin/contacts">
+                            <i class="bi bi-envelope me-2"></i>
+                            <span>Messages</span>
+                            <span th:if="${unreadCount > 0}"
+                                  th:text="${unreadCount}"
+                                  class="badge bg-danger ms-2 rounded-pill">
+        </span>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#settings" data-bs-toggle="tab">
                             <i class="bi bi-gear me-2"></i>Settings

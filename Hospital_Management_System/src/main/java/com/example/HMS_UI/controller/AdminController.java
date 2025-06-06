@@ -1,5 +1,6 @@
 package com.example.HMS_UI.controller;
 
+import com.example.HMS_UI.constant.CONTACT_STATUS;
 import com.example.HMS_UI.constant.USER_ROLE;
 import com.example.HMS_UI.dto.AdminSaveDTO;
 import com.example.HMS_UI.dto.AppointmentSaveDTO;
@@ -7,6 +8,7 @@ import com.example.HMS_UI.dto.DepartmentSaveDTO;
 import com.example.HMS_UI.dto.DoctorSaveDTO;
 import com.example.HMS_UI.model.User;
 import com.example.HMS_UI.service.AppointmentService;
+import com.example.HMS_UI.service.ContactService;
 import com.example.HMS_UI.service.DepartmentService;
 import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,8 @@ public class AdminController {
     private AppointmentService appointmentService;
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private ContactService contactService;
     //Admin only
     @Operation(
             summary = "Register new admin",
@@ -62,7 +67,11 @@ public class AdminController {
     }
     @GetMapping("/dashboard")
     public String adminDashboard(Model model){
-
+        Pageable pageable=null;
+        CONTACT_STATUS status=null;
+        String search=null;
+        int unreadCount=contactService.getAllContacts(pageable,status,search).getSize();
+        model.addAttribute("unreadCount",unreadCount);
         model.addAttribute("appointmentCount",appointmentService.appointmentCount());
         model.addAttribute("doctorCount",userService.doctorCount(USER_ROLE.DOCTOR));
         model.addAttribute("patientCount",userService.patientCount(USER_ROLE.PATIENT));

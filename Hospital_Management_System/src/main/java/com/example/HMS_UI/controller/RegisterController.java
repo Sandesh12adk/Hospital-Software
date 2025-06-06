@@ -11,10 +11,7 @@ import com.example.HMS_UI.model.Patient;
 import com.example.HMS_UI.model.User;
 import com.example.HMS_UI.repo.DoctorRepo;
 import com.example.HMS_UI.repo.PatientRepo;
-import com.example.HMS_UI.service.AppointmentService;
-import com.example.HMS_UI.service.DepartmentService;
-import com.example.HMS_UI.service.GrantAccess;
-import com.example.HMS_UI.service.UserService;
+import com.example.HMS_UI.service.*;
 import com.example.HMS_UI.service.securityservice.JWTService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -51,9 +48,10 @@ public class RegisterController {
     private AppointmentService appointmentService;
     @Autowired
     private JWTService jwtService;
-
     @Autowired
     private DoctorRepo doctorRepo;
+    @Autowired
+    private DoctorService doctorService;
     //permit all
     //final
 
@@ -150,5 +148,10 @@ public class RegisterController {
     public String viewDoctor(@PathVariable int doctorId, Model model) {
         model.addAttribute("doctor", userService.getDoctorDetail(doctorId));
         return "doctorDetail";
+    }
+    @PostMapping("/admin/doctors/delete/{id}")
+    public String deleteDoctor(@PathVariable int id) {
+        doctorService.deleteById(id);
+        return "redirect:/admin/dashboard"; // redirect to doctors listing page
     }
 }

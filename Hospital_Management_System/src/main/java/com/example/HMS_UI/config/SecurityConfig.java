@@ -55,7 +55,10 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/template/**",
                                 "/department",
-                                "/doctors"
+                                "/doctors",
+                                "/",
+                                "/deparements",
+                                "/servicesl"
                         ).permitAll()
 
                         // 🔐 Admin-only endpoints

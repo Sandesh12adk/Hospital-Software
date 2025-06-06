@@ -1,5 +1,6 @@
 package com.example.HMS_UI.service;
 
+import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import com.example.HMS_UI.dto.MedicalRecordDTO;
 import com.example.HMS_UI.mapper.MedicalRecortMapper;
 import com.example.HMS_UI.model.MedicalRecord;
@@ -37,5 +38,13 @@ public class MedicalRecordService {
 
     public int getRecordCount(int patientId) {
         return medicalRecordRepo.findByAppointmentPatientId(patientId).size();
+    }
+
+    public List<Integer> getAppointmentIdsOfDoctor(int doctorId) {
+        return medicalRecordRepo.findByDoctorId(doctorId)
+                .stream()
+                .filter(appointment -> {return appointment.getStatus()==APPOINTMENT_STATUS.SCHEDULDED;})
+                .map(appointment -> {return appointment.getId();})
+                .toList();
     }
 }
