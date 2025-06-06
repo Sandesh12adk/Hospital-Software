@@ -14,5 +14,4 @@ public class MedicalRecordDTO {
     private int appointmentId;
     private String doctorName;
 
-
 }

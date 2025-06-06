@@ -45,5 +45,6 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Integer>, Pa
                                                @Param("status") APPOINTMENT_STATUS status,
                                                @Param("fromDate") LocalDate fromDate,
                                                @Param("toDate") LocalDate toDate);
+    List<Appointment> findByPatientAndDateGreaterThanEqual(Patient patient, LocalDate date);
 
 }

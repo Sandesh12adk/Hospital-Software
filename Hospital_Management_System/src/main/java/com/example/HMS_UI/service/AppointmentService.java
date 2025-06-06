@@ -131,4 +131,7 @@ public class AppointmentService {
                 toDate
         );
     }
+    public List<Appointment> findByPatientAndDateGreaterThanEqual(Patient patient, LocalDate date){
+        return appointmentRepo.findByPatientAndDateGreaterThanEqual(patient,date);
+    }
 }

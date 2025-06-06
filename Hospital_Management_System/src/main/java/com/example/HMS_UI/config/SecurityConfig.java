@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +37,7 @@ public class SecurityConfig {
                         // 👩‍⚕️ Public pages (open to all users)
                         .requestMatchers(
                                 "/login",
+                                "/logout",
                                 "/home",
                                 "/docs",
                                 "/user/hello",
@@ -51,7 +53,9 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/webjars/**",
                                 "/favicon.ico",
-                                "/template/**"
+                                "/template/**",
+                                "/department",
+                                "/doctors"
                         ).permitAll()
 
                         // 🔐 Admin-only endpoints
@@ -62,6 +66,7 @@ public class SecurityConfig {
                                 "/department/save",
                                 "/user/patient/findall",
                                 "/admin/dashboard"
+
                         ).hasRole("ADMIN")
 
                         // 👨‍⚕️ Doctor-only endpoints
@@ -96,12 +101,12 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout=true") // Redirect to login page with logout message
-                        .invalidateHttpSession(true)           // Invalidate the session
-                        .clearAuthentication(true)             // Clear the authentication
-                        .deleteCookies("JSESSIONID")           // Optional: clear session cookie
-                        .permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))  // allows GET
+                        .logoutSuccessUrl("/home")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 )
+
 
 
                 // ⚙️ Session handling

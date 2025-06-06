@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Harmony Health | Patient Dashboard</title>
@@ -487,10 +487,11 @@
     <nav class="main-nav">
         <div class="logo"><strong>हार्मोनी</strong><span>स्वास्थ्य</span></div>
         <ul>
-            <li><a href="/patient/dashboard">Dashboard</a></li>
-            <li><a href="/patient/medical-history">Medical History</a></li>
+            <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}" class="btn btn-primary">
+                <i class="bi bi-clipboard2-pulse me-1"></i> Medical Historyy
+            </a>
             <li><a href="/patient/appointments">Appointments</a></li>
-            <li><a href="/departments">Departments</a></li>
+            <li><a href="/department">Departments</a></li>
             <li><a href="/doctors">Doctors</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/logout">Logout</a></li>
@@ -503,10 +504,13 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <div class="user-avatar">P</div>
+            <div class="user-avatar">
+                <span th:text="${patientName.substring(0,1)}">J</span>
+            </div>
             <div class="user-info">
-                <h4>Patient Name</h4>
-                <p>Patient ID: 12345</p>
+                <h4 th:text="${patientName}">Patient Name</h4>
+                <p th:text="'Patient ID: ' + ${patientId}">Patient ID: 12345</p>
+
             </div>
         </div>
 
@@ -518,9 +522,8 @@
                 </a>
             </li>
             <li>
-                <a href="/patient/medical-history">
-                    <i class="fas fa-file-medical"></i>
-                    <span>Medical History</span>
+                <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}">
+                    <i class="bi bi-clipboard2-pulse me-1"></i> Medical Historyy
                 </a>
             </li>
             <li>
@@ -530,21 +533,13 @@
                 </a>
             </li>
             <li>
-                <a href="/patient/prescriptions">
-                    <i class="fas fa-prescription-bottle-alt"></i>
-                    <span>Prescriptions</span>
+                <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}">
+                    <i class="bi bi-clipboard2-pulse me-1"></i>prescriptions
                 </a>
             </li>
             <li>
-                <a href="/patient/test-results">
-                    <i class="fas fa-vial"></i>
-                    <span>Test Results</span>
-                </a>
-            </li>
-            <li>
-                <a href="/departments">
-                    <i class="fas fa-clinic-medical"></i>
-                    <span>Departments</span>
+                <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}">
+                    <i class="bi bi-clipboard2-pulse me-1"></i>Test Results
                 </a>
             </li>
             <li>
@@ -554,110 +549,57 @@
                 </a>
             </li>
             <li>
-                <a href="/contact">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contact</span>
-                </a>
-            </li>
-        </ul>
 
-        <div class="logout-btn">
-            <a href="/logout" class="btn btn-outline" style="display: block; text-align: center;">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
+        </ul>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
         <!-- Welcome Section -->
         <section class="welcome-section">
-            <h2>Welcome back, Patient!</h2>
+            <h2>Welcome back
+                <span> <h4 th:text="${patientName}">Patient Name</h4></span>
+            </h2>
             <p>Here's what's happening with your health today</p>
         </section>
 
         <!-- Dashboard Cards -->
+
         <div class="dashboard-cards">
-            <div class="dashboard-card">
-                <i class="fas fa-calendar-check"></i>
-                <h3>Upcoming Appointments</h3>
-                <p>2</p>
+            <div class="dashboard-cards">
+                <a href="/patient/appointments" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Upcoming Appointments</h3>
+                        <p th:text="${upcomingAppointments}">0</p>
+                    </div>
+                </a>
             </div>
-            <div class="dashboard-card">
-                <i class="fas fa-prescription-bottle-alt"></i>
-                <h3>Active Prescriptions</h3>
-                <p>3</p>
+
+
+            <div class="dashboard-cards">
+                <a th:href="@{/patients/{patientId}/medical-history(patientId=${patientId})}" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <i class="fas fa-file-medical"></i>
+                        <h3>Medical Records</h3>
+                        <p th:text="${medicalRecordCount}">0</p>
+                    </div>
+                </a>
             </div>
-            <div class="dashboard-card">
-                <i class="fas fa-file-medical"></i>
-                <h3>Medical Records</h3>
-                <p>5</p>
-            </div>
+
             <div class="dashboard-card">
                 <i class="fas fa-bell"></i>
                 <h3>Notifications</h3>
                 <p>1</p>
             </div>
         </div>
-
-        <!-- Recent Appointments -->
-        <h2 class="section-title">
-            <i class="fas fa-calendar-alt"></i> Recent Appointments
-        </h2>
-        <div class="appointments-table">
-            <table>
-                <thead>
-                <tr>
-                    <th>Date & Time</th>
-                    <th>Doctor</th>
-                    <th>Department</th>
-                    <th>Purpose</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Jun 15, 2023 10:00 AM</td>
-                    <td>Dr. Sharma</td>
-                    <td>Cardiology</td>
-                    <td>Regular Checkup</td>
-                    <td>
-                        <span class="status-badge confirmed">Confirmed</span>
-                    </td>
-                    <td>
-                        <a href="/patient/appointments/1" class="btn btn-primary">View</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jun 20, 2023 02:30 PM</td>
-                    <td>Dr. Gurung</td>
-                    <td>Neurology</td>
-                    <td>Follow-up Visit</td>
-                    <td>
-                        <span class="status-badge pending">Pending</span>
-                    </td>
-                    <td>
-                        <a href="/patient/appointments/2" class="btn btn-primary">View</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
         <!-- Quick Actions -->
         <h2 class="section-title">
             <i class="fas fa-bolt"></i> Quick Actions
         </h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="/patient/appointments/book" class="btn btn-primary">
+            <a href="/contact" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Book Appointment
-            </a>
-            <a href="/patient/prescriptions" class="btn btn-outline">
-                <i class="fas fa-prescription-bottle-alt"></i> View Prescriptions
-            </a>
-            <a href="/patient/test-results" class="btn btn-outline">
-                <i class="fas fa-vial"></i> View Test Results
             </a>
             <a href="/contact" class="btn btn-outline">
                 <i class="fas fa-headset"></i> Contact Support

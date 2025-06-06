@@ -12,11 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -113,5 +116,29 @@ public class DepartmentController {
 
         return departmentDTO;
     }
+    @GetMapping
+    public String listDepartments(Model model,
+                                  @RequestParam(required = false) String searchQuery) {
+        List<DepartmentDTO> departments;
 
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            departments = StreamSupport
+                    .stream(departmentService.findAll().spliterator(), false)
+                    .collect(Collectors.toList())
+                    .stream()
+                    .map(department -> {return createDepartmentDTO(department);})
+                    .toList();
+        } else {
+            departments = StreamSupport
+                    .stream(departmentService.findAll().spliterator(), false)
+                    .collect(Collectors.toList())
+                    .stream()
+                    .map(department -> {return createDepartmentDTO(department);})
+                    .toList();
+        }
+
+        model.addAttribute("departments", departments);
+        model.addAttribute("searchQuery", searchQuery);
+        return "departments"; // Template name should match your HTML file
+    }
 }

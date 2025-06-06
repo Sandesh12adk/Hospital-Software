@@ -7,7 +7,9 @@ import com.example.HMS_UI.exception.ResourceNotFoundException;
 import com.example.HMS_UI.model.Patient;
 import com.example.HMS_UI.model.User;
 import com.example.HMS_UI.repo.PatientRepo;
+import com.example.HMS_UI.service.AppointmentService;
 import com.example.HMS_UI.service.GrantAccess;
+import com.example.HMS_UI.service.MedicalRecordService;
 import com.example.HMS_UI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +39,10 @@ public class PatientController {
     private GrantAccess grantAccess;
     @Autowired
     private PatientRepo patientRepo;
+    @Autowired
+    private AppointmentService appointmentService;
+    @Autowired
+    private MedicalRecordService medicalRecordService;
     //permit all
     //final
 
@@ -83,7 +90,17 @@ public class PatientController {
     }
 
     @GetMapping("/patient/dashboard")
-    public String patinetDashboard(){
+    public String patinetDashboard(Model model){
+        model.addAttribute("patientId", new GrantAccess().getAuthenticationUser().getPatient().getId());
+        Patient patient = new GrantAccess().getAuthenticationUser().getPatient();
+        model.addAttribute("patientName", patient.getUser().getName());
+        model.addAttribute("upcomingAppointments",appointmentService.findByPatientAndDateGreaterThanEqual(
+                new GrantAccess().getAuthenticationUser().getPatient(), LocalDate.now()
+        ).size() );
+        model.addAttribute("patientId", patient.getId());
+        int patientId= new GrantAccess().getAuthenticationUser().getPatient().getId();
+        model.addAttribute("patientId", patientId);
+        model.addAttribute("medicalRecordCount",medicalRecordService.getRecordCount(patientId));
         return "patient_dashboard";
     }
 
