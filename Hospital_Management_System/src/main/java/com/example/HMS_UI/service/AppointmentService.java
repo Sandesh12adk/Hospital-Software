@@ -1,13 +1,19 @@
 package com.example.HMS_UI.service;
 
 import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
+import com.example.HMS_UI.dto.AppointmentDTO;
+import com.example.HMS_UI.dto.AppointmentDTOA;
+import com.example.HMS_UI.dto.AppointmentDoctorDTO;
 import com.example.HMS_UI.dto.DashboardAppointmentDTO;
 import com.example.HMS_UI.exception.ResourceNotFoundException;
+import com.example.HMS_UI.mapper.AppointmentMapper;
 import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.model.Doctor;
 import com.example.HMS_UI.model.Patient;
 import com.example.HMS_UI.repo.AppointmentRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -133,5 +139,34 @@ public class AppointmentService {
     }
     public List<Appointment> findByPatientAndDateGreaterThanEqual(Patient patient, LocalDate date){
         return appointmentRepo.findByPatientAndDateGreaterThanEqual(patient,date);
+    }
+   public List<AppointmentDoctorDTO> findFilteredAppointmentsForDoctor(int doctorId,
+                                                           APPOINTMENT_STATUS status,
+                                                           LocalDate fromDate,
+                                                            LocalDate toDate){
+
+        return appointmentRepo.findFilteredAppointmentsForDoctor(doctorId, status, fromDate, toDate)
+                .stream()
+                .map(appointment -> {return toDTO(appointment);})
+                .toList();
+
+    }
+   public List<AppointmentDoctorDTO> findByDoctorAndDateGreaterThanEqual(Doctor doctor, LocalDate date){
+
+       return  appointmentRepo.findByDoctorAndDateGreaterThanEqual(doctor,date)
+               .stream()
+               .map(appointment -> {return toDTO(appointment);})
+               .toList();
+    }
+    public AppointmentDoctorDTO toDTO(Appointment appointment) {
+        AppointmentDoctorDTO dto = new AppointmentDoctorDTO();
+      dto.setAppointmentId(appointment.getId());
+      dto.setReason(appointment.getReason());
+      dto.setAppointmentStatus(appointment.getStatus().name());
+      dto.setPatientId(appointment.getPatient().getId());
+      dto.setLocalDate(appointment.getDate());
+      dto.setLocalTime(appointment.getTime());
+      dto.setPatientName(appointment.getPatient().getUser().getName());
+        return dto;
     }
 }

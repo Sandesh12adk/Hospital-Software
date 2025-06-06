@@ -2,6 +2,7 @@ package com.example.HMS_UI.repo;
 
 import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import com.example.HMS_UI.model.Appointment;
+import com.example.HMS_UI.model.Doctor;
 import com.example.HMS_UI.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -46,5 +47,14 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Integer>, Pa
                                                @Param("fromDate") LocalDate fromDate,
                                                @Param("toDate") LocalDate toDate);
     List<Appointment> findByPatientAndDateGreaterThanEqual(Patient patient, LocalDate date);
+    @Query("SELECT a FROM Appointment a WHERE a.doctor.id = :doctorId " +
+            "AND (:status IS NULL OR a.status = :status) " +
+            "AND (:fromDate IS NULL OR a.date >= :fromDate) " +
+            "AND (:toDate IS NULL OR a.date <= :toDate)")
+    List<Appointment> findFilteredAppointmentsForDoctor(@Param("doctorId") int doctorId,
+                                                        @Param("status") APPOINTMENT_STATUS status,
+                                                        @Param("fromDate") LocalDate fromDate,
+                                                        @Param("toDate") LocalDate toDate);
+    List<Appointment> findByDoctorAndDateGreaterThanEqual(Doctor doctor, LocalDate date);
 
 }
