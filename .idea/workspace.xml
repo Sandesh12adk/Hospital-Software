@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Payment Simulated">
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Payment integrated successfully">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/dto/AppointmentDTOA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/mapper/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/mapper/AppointmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/model/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/java/com/example/HMS_UI/repo/AppointmentRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/patient/appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/templates/patient/appointments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/constant/APPOINTMENT_STATUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/constant/APPOINTMENT_STATUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/dto/AppointmentDTOA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/dto/AppointmentDTOA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/mapper/AppointmentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/mapper/AppointmentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/service/AppointmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/service/AppointmentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/service/MedicalRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/service/MedicalRecordService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/templates/patient/appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/templates/patient/appointments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/model/Appointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/model/Appointment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/repo/AppointmentRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HMS_UI/com/example/HMS_UI/repo/AppointmentRepo.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749282388212</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Payment integrated successfully">
+      <option name="closed" value="true" />
+      <created>1749286960336</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749286960336</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +279,8 @@
     <MESSAGE value="try 4" />
     <MESSAGE value="try 5" />
     <MESSAGE value="Payment Simulated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Payment Simulated" />
+    <MESSAGE value="Payment integrated successfully" />
+    <option name="LAST_COMMIT_MESSAGE" value="Payment integrated successfully" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
