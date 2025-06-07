@@ -15,8 +15,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -249,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749291958396</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Cloud Hosting of DB">
+      <option name="closed" value="true" />
+      <created>1749303214333</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749303214333</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +293,8 @@
     <MESSAGE value="Payment Simulated" />
     <MESSAGE value="Payment integrated successfully" />
     <MESSAGE value="Done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done" />
+    <MESSAGE value="Cloud Hosting of DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cloud Hosting of DB" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
