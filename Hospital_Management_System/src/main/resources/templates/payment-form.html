@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | Harmony Health</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --secondary: #ff7e33;
+            --success: #28a745;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --esewa-green: #53a644;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        .payment-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .payment-header h2 {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .payment-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .payment-amount {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .payment-amount h3 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .payment-amount p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+
+        .payment-methods {
+            margin-bottom: 25px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            background-color: rgba(42, 127, 186, 0.05);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background-color: rgba(42, 127, 186, 0.1);
+        }
+
+        .payment-method-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .esewa-icon {
+            background-color: var(--esewa-green);
+            color: white;
+        }
+
+        .payment-method-info {
+            flex: 1;
+        }
+
+        .payment-method-info h5 {
+            margin-bottom: 3px;
+            font-size: 16px;
+        }
+
+        .payment-method-info p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: var(--success);
+            border: none;
+        }
+
+        .btn-pay:hover {
+            background-color: #218838;
+        }
+
+        .payment-terms {
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hidden-radio {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+
+        .esewa-logo {
+            width: 10px;
+            height: 10px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="payment-container">
+        <div class="payment-header">
+            <img src="https://via.placeholder.com/80x80?text=HH" alt="Harmony Health Logo" class="payment-logo">
+            <h2>Complete Your Payment</h2>
+            <p class="text-muted">Secure payment for your appointment</p>
+        </div>
+
+        <div class="payment-amount">
+            <p>Total Amount to Pay</p>
+            <h3>NPR <span th:text="${amount}">0.00</span></h3>
+            <input type="hidden" name="amount" th:value="${amount}">
+            <input type="hidden" name="appointmentId" th:value="${appointmentId}">
+        </div>
+
+        <form th:action="@{/payments/process}" method="post" id="paymentForm">
+            <!-- Hidden inputs for required parameters -->
+            <input type="hidden" name="appointmentId" th:value="${appointmentId}" />
+            <input type="hidden" name="amount" th:value="${amount}" />
+
+            <div class="payment-methods">
+                <h5 class="mb-3">Select Payment Method</h5>
+
+                <label class="payment-method active">
+                    <input type="radio" name="method" value="eSewa" class="hidden-radio" checked>
+                    <div class="payment-method-icon esewa-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Esewa_logo.svg/1200px-Esewa_logo.svg.png"
+                             alt="eSewa Logo" class="esewa-logo">
+                    </div>
+                    <div class="payment-method-info">
+                        <h5>eSewa</h5>
+                        <p>Pay with your eSewa wallet or linked bank account</p>
+                    </div>
+                    <div class="payment-method-check">
+                        <i class="fas fa-check-circle text-success"></i>
+                    </div>
+                </label>
+
+                <label class="payment-method">
+                    <input type="radio" name="method" value="Cash" class="hidden-radio">
+                    <div class="payment-method-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="payment-method-info">
+                        <h5>Cash Payment</h5>
+                        <p>Pay in cash at our hospital reception</p>
+                    </div>
+                    <div class="payment-method-check">
+                        <i class="fas fa-check-circle text-success"></i>
+                    </div>
+                </label>
+            </div>
+
+            <div class="mb-4">
+                <label for="remarks" class="form-label">Payment Remarks (Optional)</label>
+                <textarea class="form-control" id="remarks" name="remarks" rows="2"
+                          placeholder="Any additional notes about this payment"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-pay btn-lg">
+                <i class="fas fa-lock me-2"></i> Complete Secure Payment
+            </button>
+
+            <p class="payment-terms">
+                By completing this payment, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                Your payment information is processed securely.
+            </p>
+        </form>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle payment method selection
+        const paymentMethods = document.querySelectorAll('.payment-method');
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove active class from all methods
+                paymentMethods.forEach(m => m.classList.remove('active'));
+
+                // Add active class to clicked method
+                this.classList.add('active');
+
+                // Check the radio input
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+            });
+        });
+
+        // Form submission handling
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener('submit', function(e) {
+            // Here you would typically validate the form before submission
+            // For demo purposes, we'll just proceed
+            console.log('Payment form submitted');
+
+            // In a real application, you might show a loading spinner here
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+            submitBtn.disabled = true;
+        });
+    });
+</script>
+</body>
+</html>
