@@ -14,4 +14,5 @@ public class AppointmentDTOA {
         private String reason;
         private String status;
         private String departmentName;
+        private String paymentStatus;
 }

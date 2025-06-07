@@ -48,9 +48,8 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "Patient_Id",nullable = false)
     private Patient patient;
-
+    private String paymentStatus= "Unpaid";
     //Appointment MedicalRecord Relation
-
    @OneToOne(mappedBy = "appointment")
   private MedicalRecord medicalRecord;
 }

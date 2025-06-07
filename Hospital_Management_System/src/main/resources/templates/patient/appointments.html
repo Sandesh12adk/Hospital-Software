@@ -362,13 +362,17 @@
                     <td th:text="${appointment.departmentName}"></td>
                     <td th:text="${appointment.status}"></td>
                     <td>
-                        <a th:href="@{'/payments/pay/' + ${appointment.id}}"
-                           class="btn btn-sm btn-primary"
-                           th:if="${appointment.status == 'SCHEDULED'}">
+                        <a th:if="${appointment.status == 'SCHEDULED' and appointment.paymentStatus != 'Paid'}"
+                           th:href="@{'/payments/pay/' + ${appointment.id}}"
+                           class="btn btn-sm btn-primary">
                             Pay Now
                         </a>
-                        <span th:if="${appointment.status != 'SCHEDULED'}">—</span>
+                        <span th:if="${appointment.paymentStatus == 'Paid'}" class="text-muted small">
+                         Paid
+                        </span>
+                        <span th:if="${appointment.status != 'SCHEDULED' and appointment.paymentStatus != 'Paid'}">—</span>
                     </td>
+
                 </tr>
                 </tbody>
             </table>

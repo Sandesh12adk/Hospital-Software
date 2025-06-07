@@ -4,7 +4,9 @@ import com.example.HMS_UI.constant.APPOINTMENT_STATUS;
 import com.example.HMS_UI.model.Appointment;
 import com.example.HMS_UI.model.Doctor;
 import com.example.HMS_UI.model.Patient;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -56,5 +58,8 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Integer>, Pa
                                                         @Param("fromDate") LocalDate fromDate,
                                                         @Param("toDate") LocalDate toDate);
     List<Appointment> findByDoctorAndDateGreaterThanEqual(Doctor doctor, LocalDate date);
-
+    @Modifying
+    @Transactional
+    @Query("UPDATE Appointment a SET a.paymentStatus = 'Paid' WHERE a.id = :appointmentId")
+    void markAppointmentAsPaid(int appointmentId);
 }

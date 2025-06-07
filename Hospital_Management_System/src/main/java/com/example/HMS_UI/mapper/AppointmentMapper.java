@@ -21,6 +21,7 @@ public class AppointmentMapper {
         dto.setReason(appointment.getReason());
         dto.setStatus(appointment.getStatus().name());
         dto.setDepartmentName(appointment.getDoctor().getDepartment().getName());
+        dto.setPaymentStatus(appointment.getPaymentStatus());
         return dto;
     }
 }
