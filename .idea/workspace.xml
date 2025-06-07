@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="try 4" />
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="try 5">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Hospital_Management_System/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -217,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749229723058</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="try 5">
+      <option name="closed" value="true" />
+      <created>1749258700638</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749258700638</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,7 +260,8 @@
     <MESSAGE value="try 2" />
     <MESSAGE value="try 3" />
     <MESSAGE value="try 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="try 4" />
+    <MESSAGE value="try 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="try 5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
