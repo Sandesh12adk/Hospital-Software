@@ -51,7 +51,7 @@ public class AppointmentService {
                 .orElseThrow(()->
                         new ResourceNotFoundException("Appointment doesnot exist with id "+ appointmentId
                         ));
-        appointment.setStatus(APPOINTMENT_STATUS.SCHEDULDED);
+        appointment.setStatus(APPOINTMENT_STATUS.SCHEDULED);
         save(appointment);
     }
 
@@ -68,7 +68,7 @@ public class AppointmentService {
         List<Appointment> appointmentList= findAll()
                 .stream().filter((appointment)-> {
                            return appointment.getStatus() == APPOINTMENT_STATUS.PENDING ||
-                                    appointment.getStatus() == APPOINTMENT_STATUS.SCHEDULDED;
+                                    appointment.getStatus() == APPOINTMENT_STATUS.SCHEDULED;
                         } ).collect(Collectors.toList());
         for(Appointment appointment: appointmentList){
             long days= ChronoUnit.DAYS.between(appointment.getDate(), LocalDate.now());

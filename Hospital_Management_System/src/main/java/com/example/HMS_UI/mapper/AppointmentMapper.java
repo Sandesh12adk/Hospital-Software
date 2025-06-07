@@ -19,7 +19,7 @@ public class AppointmentMapper {
         dto.setDate(appointment.getDate());
         dto.setTime(appointment.getTime());
         dto.setReason(appointment.getReason());
-        dto.setStatus(appointment.getStatus());
+        dto.setStatus(appointment.getStatus().name());
         dto.setDepartmentName(appointment.getDoctor().getDepartment().getName());
         return dto;
     }

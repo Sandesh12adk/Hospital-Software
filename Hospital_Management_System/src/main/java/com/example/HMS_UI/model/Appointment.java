@@ -53,5 +53,4 @@ public class Appointment {
 
    @OneToOne(mappedBy = "appointment")
   private MedicalRecord medicalRecord;
-
 }

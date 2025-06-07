@@ -275,7 +275,7 @@
         <nav class="breadcrumb-nav">
             <a th:href="@{/user/patient/dashboard}"><i class="fas fa-home"></i> Dashboard</a>
             <span class="breadcrumb-separator">›</span>
-            <span class="breadcrumb-current">Appointments/span>
+            <span class="breadcrumb-current">Appointments</span>
         </nav>
     </div>
 </section>
@@ -351,6 +351,7 @@
                     <th>Doctor</th>
                     <th>Department</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -360,6 +361,14 @@
                     <td th:text="${appointment.doctorName}"></td>
                     <td th:text="${appointment.departmentName}"></td>
                     <td th:text="${appointment.status}"></td>
+                    <td>
+                        <a th:href="@{'/payments/pay/' + ${appointment.id}}"
+                           class="btn btn-sm btn-primary"
+                           th:if="${appointment.status == 'SCHEDULED'}">
+                            Pay Now
+                        </a>
+                        <span th:if="${appointment.status != 'SCHEDULED'}">—</span>
+                    </td>
                 </tr>
                 </tbody>
             </table>

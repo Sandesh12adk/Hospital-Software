@@ -43,7 +43,7 @@ public class MedicalRecordService {
     public List<Integer> getAppointmentIdsOfDoctor(int doctorId) {
         return medicalRecordRepo.findByDoctorId(doctorId)
                 .stream()
-                .filter(appointment -> {return appointment.getStatus()==APPOINTMENT_STATUS.SCHEDULDED;})
+                .filter(appointment -> {return appointment.getStatus()==APPOINTMENT_STATUS.valueOf("SCHEDULDED");})
                 .map(appointment -> {return appointment.getId();})
                 .toList();
     }

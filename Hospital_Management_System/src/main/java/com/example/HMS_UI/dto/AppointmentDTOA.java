@@ -12,6 +12,6 @@ public class AppointmentDTOA {
         private LocalDate date;
         private LocalTime time;
         private String reason;
-        private APPOINTMENT_STATUS status;
+        private String status;
         private String departmentName;
 }
