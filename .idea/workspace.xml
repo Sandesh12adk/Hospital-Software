@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Global error" />
+    <list default="true" id="62260eaa-9f10-4918-ad47-9e4a8f2bebf2" name="Changes" comment="Global error updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -265,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749303415455</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Global error updated">
+      <option name="closed" value="true" />
+      <created>1749304209329</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1749304209329</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -303,7 +311,8 @@
     <MESSAGE value="Done" />
     <MESSAGE value="Cloud Hosting of DB" />
     <MESSAGE value="Global error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Global error" />
+    <MESSAGE value="Global error updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Global error updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

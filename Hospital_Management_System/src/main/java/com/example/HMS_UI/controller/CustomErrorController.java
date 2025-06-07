@@ -17,8 +17,21 @@ import java.util.Map;
 public class CustomErrorController {
 
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception ex, Model model) {
-        model.addAttribute("errorMessage", ex.getMessage() != null ? ex.getMessage() : "Unknown error");
-        return "error"; // returns error.html Thymeleaf template
+    public String handleException(Exception ex, HttpServletRequest request, Model model) {
+        model.addAttribute("timestamp", LocalDateTime.now());
+        model.addAttribute("status", 500);
+        model.addAttribute("error", "Internal Server Error");
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("exception", ex.getClass().getSimpleName());
+        model.addAttribute("path", request.getRequestURI());
+
+        // Optional: include stack trace for dev
+        StringBuilder trace = new StringBuilder();
+        for (StackTraceElement element : ex.getStackTrace()) {
+            trace.append(element).append("\n");
+        }
+        model.addAttribute("trace", trace.toString());
+
+        return "error"; // Thymeleaf will render error.html
     }
     }
